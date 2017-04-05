@@ -5,13 +5,56 @@
     ViewBag.Title = "DisplayEvents";
 }
 
-<h2>Display Events</h2>
 
+<script language="javascript">
+
+    $(document).ready(function () {
+        $("#list2").jqGrid({
+            
+            url: '/Event/getEvents/',
+            datatype: "json",
+            contentType: "application/json; charset-utf-8",
+            mtype: 'GET',
+            colNames: ['Id', 'Event Name', 'Event Date And Time', 'City'],
+           
+            colModel: [
+                { name: 'id', index: 'id', key : "true", hidden: "true" },
+                { name: 'EventName', index: 'EventName' },
+                { name: 'EventateTime', index: 'EventDateTime' },
+                { name: 'City', index: 'City' }
+            ],
+            rowNum: 10,
+            height: '100%',
+            autowidth: true,
+            rowList: [10, 20, 30, 40],
+            pager: '#pager2',
+            sortname: 'EventName',
+            viewrecords: true,
+            sortorder: "asc",
+            caption: "Event List",
+            multiselect: false
+    });
+        jQuery("#list2").jqGrid('navGrid', '#pager2',
+            { edit: true, add: true, del: true });
+});
+</script>  
+
+@*<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Add Event", "Index", "Home")</li>
+        <li>@Html.ActionLink("Edit Event", "About", "Home")</li>
+        <li>@Html.ActionLink("", "Contact", "Home")</li>
+    </ul>
+</div>
 @foreach (Event eventModel in Model)
 {
     <div>
         @eventModel.City
     </div>
 
-}
+}*@
 
+<div style="padding-top:50px">
+    <table id= "list2"></table>
+    <div id="pager2"></div>
+</div>

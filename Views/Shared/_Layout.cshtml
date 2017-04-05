@@ -5,9 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Amazing Race Portal</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/main.css" rel="stylesheet"  type="text/css"/>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+    <link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/jquery.jqGrid/ui.jqgrid.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery-ui-1.10.0.min.js"></script>
+    <script src="~/Scripts/i18n/grid.locale-en.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.jqGrid.min.js" type="text/javascript"></script>  
+
 </head>
+
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -37,12 +47,12 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Enterprise .NET Team-07</p>
+        <footer id="myfooter">
+            <p>&copy; @DateTime.Now.Year - Enterprise .NET Project By Team-07</p>
         </footer>
     </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+  @*  <script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
     <script src="~/Scripts/bootstrap.min.js"></script>
 </body>
 </html>
