@@ -1,11 +1,14 @@
 ﻿using System.Web.Mvc;
 using BusinessLayer;
 using System.Linq;
+using AmazingRaceMVC.Models;
+using System;
 
 namespace AmazingRaceMVC.Controllers
 {
     public class EventController : Controller
     {
+        EventManagement em = new EventManagement();
         // GET: Event
         public ActionResult Index()
         {
@@ -15,7 +18,7 @@ namespace AmazingRaceMVC.Controllers
         [HttpGet]
         public JsonResult getEvents()
         {
-            EventManagement em = new EventManagement();
+          
 
             var jsonData = new
             {
@@ -40,5 +43,59 @@ namespace AmazingRaceMVC.Controllers
             //List<Event> evList = em.GetAllEvents();
             //return View(evList);
         }
+
+        [HttpPost]
+        public string Create([Bind(Exclude = "Id")] Event eventModel)
+        {
+           // ApplicationDbContext db = new ApplicationDbContext();
+            string msg;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    eventModel.Id = Guid.NewGuid();
+                    em.AddEvent(eventModel);
+
+                    msg = "Saved Successfully";
+                }
+                else
+                {
+                    msg = "Validation data not successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Error occured:" + ex.Message;
+            }
+            return msg;
+        }
+        public string Edit(Event eventModel)
+        {
+           
+            string msg;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    em.Update(eventModel);
+                    msg = "Saved Successfully";
+                }
+                else
+                {
+                    msg = "Validation data not successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Error occured:" + ex.Message;
+            }
+            return msg;
+        }
+        public string Delete(string Id)
+        {
+            em.Remove(Guid.Parse(Id));
+            return "Deleted successfully";
+        }
+
     }
 }
