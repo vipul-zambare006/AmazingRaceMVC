@@ -1,4 +1,7 @@
 ﻿using System.Web.Mvc;
+using BusinessLayer;
+using System.Collections.Generic;
+using AmazingRaceMVC.Models;
 
 namespace AmazingRaceMVC.Controllers
 {
@@ -7,7 +10,9 @@ namespace AmazingRaceMVC.Controllers
         // GET: Event
         public ActionResult Index()
         {
-            return View();
+            EventManagement em = new EventManagement();
+            List<Event> evList = em.GetAllEvents();
+            return View(evList);
         }
     }
 }

@@ -1,0 +1,17 @@
+﻿@using AmazingRaceMVC.Models;
+@model IList<Event> 
+
+@{
+    ViewBag.Title = "DisplayEvents";
+}
+
+<h2>Display Events</h2>
+
+@foreach (Event eventModel in Model)
+{
+    <div>
+        @eventModel.City
+    </div>
+
+}
+
