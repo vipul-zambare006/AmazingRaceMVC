@@ -5,12 +5,11 @@
         contentType: "application/json; charset-utf-8",
         mtype: 'GET',
         colNames: ['Id', 'Event Name', 'Event Date And Time', 'City'],
-
         colModel: [
-            { name: 'id', index: 'id', key: "true", hidden: "true" /*, editable: true*/ },
-            { name: 'EventName', index: 'EventName', editable: true },
-            { name: 'EventDateTime', index: 'EventDateTime', editable: true },
-            { name: 'City', index: 'City', editable: true }
+            { key: true, hidden: "true", name: 'id', index: 'id', editable: false , editrules: {edithidden: true } },
+            { key: false, name: 'EventName', index: 'EventName', editable: true },
+            { key: false, name: 'EventDateTime', index: 'EventDateTime', editable: true },
+            { key: false, name: 'City', index: 'City', editable: true }
         ],
         rowNum: 10,
         height: '100%',

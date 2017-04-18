@@ -18,8 +18,6 @@ namespace AmazingRaceMVC.Controllers
         [HttpGet]
         public JsonResult getEvents()
         {
-          
-
             var jsonData = new
             {
                 total = 1,
@@ -99,3 +97,98 @@ namespace AmazingRaceMVC.Controllers
 
     }
 }
+
+//public interface IDBContext
+//{
+
+//}
+
+
+//public interface IProductRepository
+//{
+
+//}
+
+//public class Product
+//{
+
+//}
+
+
+
+//public interface IProductRepository : IDisposable
+//{
+//    void AddProduct(Product product);
+//    int SaveChanges();
+//    IOrderedQueryable<Product> GetAllProductsOrderedByName();
+//}
+
+//public class ProductRepository : IProductRepository
+//{
+//    private readonly IDBContext _dbContext;
+//    public ProductRepository() : this(new ProductContext())
+//    {
+//    }
+//    public ProductRepository(IDBContext dbContext)
+//    {
+//        _dbContext = dbContext;
+//    }
+//    public void Dispose()
+//    {
+//        _dbContext.Dispose();
+//    }
+//}
+
+//public interface IProductContext : IDisposable
+//{
+//    IDbSet<Product> Products { get; set; }
+//    int SaveChanges();
+//}
+
+//public class ProductContext : DbContext, IProductContext
+//{
+//    public IDbSet<Product> Products { get; set; }
+
+//}
+
+//public class FakeDbSet<T> : IDbSet<T> where T : class
+//{
+//    ObservableCollection<T> _data;
+//    IQueryable _query;
+//    public FakeDbSet()
+//    {
+//        _data = new ObservableCollection<T>();
+//        _query = _data.AsQueryable();
+//    }
+
+//    public T Add(T item)
+//    {
+//        _data.Add(item);
+//        return item;
+//    }
+
+//    public T Remove(T item)
+//    {
+//        _data.Remove(item);
+//        return item;
+//    }
+//}
+
+//class FakeDbContext : IDBContext
+//{
+//    public FakeDbContext()
+//    {
+//        Products = new FakeDbSet<Product>();
+//    }
+//    public IDbSet<Product> Products { get; set; }
+
+//    public int SaveChanges()
+//    {
+//        return 0;
+//    }
+
+//    public void Dispose()
+//    {
+//        throw new NotImplementedException();
+//    }
+//}

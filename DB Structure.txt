@@ -1,0 +1,50 @@
+24, 25 may Kalyan
+31, 1 jun
+
+Pitstop table will have 
+	[Id] [uniqueidentifier] NOT NULL,
+	[Order] [nvarchar](15) NOT NULL,
+	[Location] [nvarchar] NOT NULL,
+	[Name] [nvarchar] NOT NULL,
+	[ClueId] [uniqueidentifier] NOT NULL,
+	[EventId] [uniqueidentifier] NOT NULL,
+	
+Events
+	[Id] [uniqueidentifier] NOT NULL,
+	[EventName] [nvarchar](15) NOT NULL,
+	[EventDateTime] datetime NOT NULL,
+	[City] [nvarchar](50) NOT NULL,
+
+Teams 
+	[Id] [uniqueidentifier] NOT NULL,
+	 Name  [nvarchar](15) NOT NULL,
+	 Photo  [nvarchar](15) NOT NULL,
+	 EventId [uniqueidentifier] NOT NULL,
+
+Clue table 
+	[Id] [uniqueidentifier] NOT NULL,
+	[Clue] [nvarchar](15) NOT NULL,
+	
+Staff Table
+	[Id] [uniqueidentifier] NOT NULL,
+	[StaffName] [nvarchar](15) NOT NULL,
+	[StaffLocation]  [nvarchar](15) NOT NULL,
+	
+LiveEventTracking
+	[Id] [uniqueidentifier] NOT NULL,
+	[EventId]  [uniqueidentifier] NOT NULL,
+	[TeamId] [uniqueidentifier] NOT NULL,
+	[SupportingStaffId] [uniqueidentifier] NOT NULL,
+	[LastUpdateLocation] [nvarchar](100) NOT NULL,
+	[NumberOfPitstopsCleared] int not null,
+	[distanceToNextPitstop] //this column will store value which calculated from [NextPitstopLocation] - [CurrentLocationOfTeam]
+	//ranking calculation logic on UI based on values from this table
+	//logic for sending current location to server periodically
+	//pitstop will notify server (send some data to server) when team will clear pitstop.
+
+
+
+
+
+
+

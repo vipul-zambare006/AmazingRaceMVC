@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (@Session["Username"] != null && string.IsNullOrEmpty(@Session["Username"].ToString()))
+{
+    <h2> Welcome @Session["Username"].ToString() </h2>
+}
+<h2>Staff login successful</h2>
+
+@using (Html.BeginForm("LogOff", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">Logout</button>
+    </div>
+}
+
+

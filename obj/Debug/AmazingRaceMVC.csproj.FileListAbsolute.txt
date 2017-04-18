@@ -118,3 +118,10 @@ D:\Enterprise.NET Project\AmazingRaceMVC\AmazingRaceMVC\bin\DataAccessLayer.dll.
 D:\Enterprise.NET Project\AmazingRaceMVC\AmazingRaceMVC\obj\Debug\AmazingRaceMVC.csprojResolveAssemblyReference.cache
 D:\Enterprise.NET Project\AmazingRaceMVC\AmazingRaceMVC\obj\Debug\AmazingRaceMVC.dll
 D:\Enterprise.NET Project\AmazingRaceMVC\AmazingRaceMVC\obj\Debug\AmazingRaceMVC.pdb
+D:\Enterprise.NET Project\AmazingRaceMVC\AmazingRaceMVC\bin\Antlr3.Runtime.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\AmazingRaceMVC\bin\Newtonsoft.Json.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\AmazingRaceMVC\bin\System.Web.Optimization.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\AmazingRaceMVC\bin\WebGrease.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\AmazingRaceMVC\bin\Antlr3.Runtime.pdb
+D:\Enterprise.NET Project\AmazingRaceMVC\AmazingRaceMVC\bin\Newtonsoft.Json.xml
+D:\Enterprise.NET Project\AmazingRaceMVC\AmazingRaceMVC\bin\System.Web.Optimization.xml
