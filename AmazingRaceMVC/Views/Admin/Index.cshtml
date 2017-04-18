@@ -1,0 +1,106 @@
+﻿
+@*@{
+    ViewBag.Title = "Index";
+}
+
+@if (@Session["Username"] != null && string.IsNullOrEmpty(@Session["Username"].ToString()))
+{
+    <h2> Welcome @Session["Username"].ToString() </h2>
+}
+<h2>Staff login successful</h2>
+
+@using (Html.BeginForm("LogOff", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">Logout</button>
+    </div>
+}*@
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<html>
+<head>
+    <link href="~/Content/menu.css" rel="stylesheet" />
+</head>
+<body>
+
+    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Amazing Race</a>
+            </div>
+
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                @*<ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                    </ul>*@
+
+                <ul class="nav navbar-nav navbar-right">
+                    @*<li><p class="navbar-text">Already have an account?</p></li>*@
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+                        <ul id="login-dp" class="dropdown-menu">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        Login via
+                                        <div class="social-buttons">
+                                            <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Google</a>
+                                            @*<a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>*@
+                                        </div>
+                                        or
+                                        @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.ValidationSummary(true)
+
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputEmail2">Username</label>
+                                                <input type="text" class="form-control" id="UserName" name="UserName" placeholder="Username" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                                <input type="password" class="form-control" id="Password" name="Password" placeholder="Password" required>
+                                                <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+
+    @*<div class="well">
+            <h4>Blog Search</h4>
+            <div class="input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div>
+        </div>*@
+</body>
+</html>

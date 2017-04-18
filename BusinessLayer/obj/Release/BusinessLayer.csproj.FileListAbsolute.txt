@@ -1,0 +1,16 @@
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Release\BusinessLayer.dll.config
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Release\BusinessLayer.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Release\BusinessLayer.pdb
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Release\DataAccessLayer.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Release\EntityFramework.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Release\EntityFramework.SqlServer.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Release\Models.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Release\DataAccessLayer.pdb
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Release\DataAccessLayer.dll.config
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Release\Models.pdb
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Release\Models.dll.config
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Release\EntityFramework.xml
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Release\EntityFramework.SqlServer.xml
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\obj\Release\BusinessLayer.csprojResolveAssemblyReference.cache
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\obj\Release\BusinessLayer.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\obj\Release\BusinessLayer.pdb

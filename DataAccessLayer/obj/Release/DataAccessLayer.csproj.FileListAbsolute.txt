@@ -1,0 +1,13 @@
+D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Release\DataAccessLayer.dll.config
+D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Release\DataAccessLayer.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Release\DataAccessLayer.pdb
+D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Release\EntityFramework.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Release\EntityFramework.SqlServer.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Release\Models.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Release\Models.pdb
+D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Release\Models.dll.config
+D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Release\EntityFramework.xml
+D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Release\EntityFramework.SqlServer.xml
+D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\obj\Release\DataAccessLayer.csprojResolveAssemblyReference.cache
+D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\obj\Release\DataAccessLayer.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\obj\Release\DataAccessLayer.pdb

@@ -1,0 +1,10 @@
+D:\Enterprise.NET Project\AmazingRaceMVC\Models\bin\Release\Models.dll.config
+D:\Enterprise.NET Project\AmazingRaceMVC\Models\bin\Release\Models.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\Models\bin\Release\Models.pdb
+D:\Enterprise.NET Project\AmazingRaceMVC\Models\bin\Release\EntityFramework.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\Models\bin\Release\EntityFramework.SqlServer.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\Models\bin\Release\EntityFramework.xml
+D:\Enterprise.NET Project\AmazingRaceMVC\Models\bin\Release\EntityFramework.SqlServer.xml
+D:\Enterprise.NET Project\AmazingRaceMVC\Models\obj\Release\Models.csprojResolveAssemblyReference.cache
+D:\Enterprise.NET Project\AmazingRaceMVC\Models\obj\Release\Models.dll
+D:\Enterprise.NET Project\AmazingRaceMVC\Models\obj\Release\Models.pdb
