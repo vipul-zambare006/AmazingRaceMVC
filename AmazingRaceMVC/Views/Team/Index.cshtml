@@ -3,5 +3,121 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Here we will configure teams for events</h2>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.min.css" />
+</head>
+
+
+<body>
+    <div style="width:90%; margin:auto" class="tablecontainer">
+        <a class="popup btn btn-primary" href="/Team/Create" style="margin-bottom:20px; margin-top:20px;">Add New Team</a>
+        <table id="team_table">
+            <thead>
+                <tr>
+                    <th>Team ID</th>
+                    <th>Team Name</th>
+                    <th>Photo</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.dataTables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var oTable = $("#team_table").DataTable({
+                "ajax": {
+                    "url": '/Team/GetTeams', // load all team Info in table (GetTEam methods in controller)
+                    "type": 'get',
+                    "datatype": 'josn'
+                },
+                "columns": [
+                    { "data": "ID", "autowidth": true },
+                    { "data": "Name", "autowidth": true },
+                    { "data": "ImageFile", "autowidth": true },
+                    {
+                        "data": "ID", "width": "50px", "render": function (data) {
+                            return '<a class="popup" href="/Team/Edit' + data + '">Edit</a>'
+                        }
+                    },
+                    {
+                        "data": "ID", "width": "50px", "render": function (data) {
+                            return '<a class="popup" href="/Team/Delete' + data + '">Delete</a>'
+                        }
+                    }
+                ]
+            });
+
+            $('.tablecontainer').on('click', 'a.popup', function (e) {
+                e.preventDefault();
+                openPopup($(this).attr('href'));
+            });
+
+            $('.popup').on('click', 'a.popup', function (e) {
+                alert("popup called");
+                e.preventDefault();
+                openPopup($(this).attr('href'));
+            });
+
+            function OpenPopup(pageurl) {
+                var $PageContent = $("<div/>");
+                $PageContent.load(pageurl, function(){
+                    $("#PopupForm", $PageContent).remove('validator');
+                    $("#PopupForm", $PageContent).remove('unobtrusiveValidation');
+
+            });
+            
+                $dialog = $('<div class = "PopupWindow" style="overflow:auto"></div>')
+                        .html($PageContent)
+                        .dialog({
+                            draggable: false,
+                            autoOpen: false,
+                            resizable: false,
+                            model: true,
+                            title: 'Popup Dialog',
+                            height: 600,
+                            width: 600,
+                            close: function () {
+                                $dialog.dialog('distroy').remove();
+                            }
+                         });
+
+                $('PopupWindow').on('submit', '#PopupForm', function (e) {
+                    var url = $('#PopupForm')[0].action
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $("#PopupForm").serialize(),
+                        success: function(data){
+                            if(data.status) {
+                                $dialog.dialog('close');
+                                oTable.ajax.reload();
+                                data.msg;
+                            }
+                        }
+                    })
+                    e.preventDefault(); 
+                })
+                $dialog.dialog('open');
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>
 
