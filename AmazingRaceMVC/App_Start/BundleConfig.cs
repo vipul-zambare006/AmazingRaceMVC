@@ -8,13 +8,26 @@ namespace AmazingRaceMVC
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            //bundles.UseCdn = true;
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery-ui-{version}.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+            "~/Scripts/jquery.validate.min.js",
+            "~/Scripts/jquery.validate.unobtrusive.min.js"
+            ));
+
+            //var jqueryDatatableCdnPath = "//cdn.dataTables.net/1.10.13/js/jquery.dataTables.min.js";
+            //var jqueryBundle = new ScriptBundle("~/bundles/jqueryCdn", jqueryDatatableCdnPath)
+            //    .Include("~/Scripts/jquery.dataTables.min.js");
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+            "~/Scripts/jquery.validate.min.js",
+            "~/Scripts/jquery.validate.unobtrusive.min.js"
+            ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -36,7 +49,7 @@ namespace AmazingRaceMVC
     //< link href = "~/Content/themes/base/jquery-ui.css" rel = "stylesheet" />
 
 
-               BundleTable.EnableOptimizations = true;
+           //    BundleTable.EnableOptimizations = true;
         }
     }
 }

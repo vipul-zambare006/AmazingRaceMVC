@@ -1,0 +1,123 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.min.css"/>
+</head>
+<body>
+    <div style="width:90%; margin:auto" class="tablecontainer">
+        <a class="popup btn btn-primary" href="/home/save/0" style="margin-bottom:20px; margin-top:20px;">Add New Employee</a>
+        <table id="Emp_table">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email ID</th>
+                    <th>CIty</th>
+                    <th>Country</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.dataTables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var oTable = $('#Emp_table').DataTable({
+                "ajax": {
+                    "url": '/home/GetEmployees', //GetEmployees is an action in HomControler
+                    "type": "get",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "Firstname", "autowidth": true },
+                    { "data": "LastName", "autowidth": true },
+                    { "data": "EmialID", "autowidth": true },
+                    { "data": "City", "autowidth": true },
+                    { "data": "Country", "autowidth": true },
+                    {
+                        "data": "Employee_Id", "width": "50px", "render": function (data) {
+                            return '<a class="popup" href ="/home/save/' + data + '">Edit</a>'
+                        }
+                    },
+                    {
+                        "data": "Employee_Id", "width": "50px", "render": function (data) {
+                            return '<a class="popup" href ="/home/delete/' + data + '">Delete</a>'
+                        }
+                    }
+                ]
+            });
+
+             $('.tablecontainer').on('click', 'a.popup', function (e) {
+                 e.preventDefault();
+                 openPopup($(this).attr('href'));
+             });
+
+             $('.popup').on('click', 'a.popup', function (e) {
+                 alert("popup called");
+                 e.preventDefault();
+                 openPopup($(this).attr('href'));
+             });
+
+            function openPopup(pageurl) {
+                var $pagecontent = $('<div/>');
+                $pagecontent.load(pageurl, function () {
+                    $('#popupform', $pagecontent).removeData('validator');
+                    $('#popupform', $pagecontent).removeData('unobtrusiveValidation');
+                    $.validator.unobtrusive.parse('form');
+                });
+
+                $dialog = $('<div class="popupwindow" style="overflow:auto"></div>')
+                        .html($pagecontent)
+                        .dialog({
+                        draggable: false,
+                        autoOpen: false,
+                        resizable: false,
+                        model: true,
+                        title: 'Popup Dialog',
+                        height: 600,
+                        width: 600,
+                        close: function () {
+                            $dialog.dialog('distroy').remove();
+                        }
+                    })
+                
+
+                $('popupwindow').on('submit', '#popupform', function (e) {
+                    var url = $('#popupform')[0].action
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $('#pupupform').serialize(),
+                        success: function (data) {
+                            if (data.status) {
+                                $dialog.dialog('close');
+                                oTable.ajax.reload();
+                            }
+                        }
+                    })
+                    e.preventDefault();
+                })
+
+                $dialog.dialog('open');
+            }
+        });
+
+    </script>
+</body>
+</html>

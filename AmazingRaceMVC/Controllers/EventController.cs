@@ -6,189 +6,74 @@ using System;
 
 namespace AmazingRaceMVC.Controllers
 {
+    [Authorize]
     public class EventController : Controller
     {
-        EventManagement em = new EventManagement();
-        // GET: Event
+        EventRepository _eventRepository = new EventRepository();
+
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        public JsonResult getEvents()
+        public JsonResult GetEvents()
         {
-            var jsonData = new
+            var raceEvents = _eventRepository.GetAll();
+            return Json(new { data = raceEvents }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Save(string id)
+        {
+            if(!string.IsNullOrEmpty(id))
             {
-                total = 1,
-                page = 1,
-                records = em.GetAllEvents().Count,
-
-                rows = (
-                 from ev in em.GetAllEvents().ToList()
-                 select new
-                 {
-                     id = ev.Id,
-                     cell = new string[] {
-                      ev.EventName.ToString(),
-                      ev.EventDateTime.ToString(),
-                      ev.City.ToString(),
-                      }
-                 }).ToArray()
-            };
-            return Json(jsonData, JsonRequestBehavior.AllowGet);
-
-            //List<Event> evList = em.GetAllEvents();
-            //return View(evList);
+                var v = _eventRepository.GetById(Guid.Parse(id));
+                return View(v);
+            }
+            return View();
         }
 
         [HttpPost]
-        public string Create([Bind(Exclude = "Id")] Event eventModel)
+        public ActionResult Save(Event raceEvent)
         {
-           // ApplicationDbContext db = new ApplicationDbContext();
-            string msg;
-            try
+            bool status = false;
+            //Validation
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                if (raceEvent != null)
                 {
-                    eventModel.Id = Guid.NewGuid();
-                    em.AddEvent(eventModel);
+                    var v = _eventRepository.GetById(raceEvent.Id);
 
-                    msg = "Saved Successfully";
-                }
-                else
-                {
-                    msg = "Validation data not successfully";
-                }
-            }
-            catch (Exception ex)
-            {
-                msg = "Error occured:" + ex.Message;
-            }
-            return msg;
-        }
-        public string Edit(Event eventModel)
-        {
-           
-            string msg;
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    em.Update(eventModel);
-                    msg = "Saved Successfully";
-                }
-                else
-                {
-                    msg = "Validation data not successfully";
+                    if (v != null)
+                    {
+                        v.EventName = raceEvent.EventName;
+                        v.EventDateTime = raceEvent.EventDateTime;
+                        v.City = raceEvent.City;
+                        //v.pitstops = raceEvent.pitstops;
+                    }
+                    else
+                    {
+                        _eventRepository.Add(raceEvent);
+                    }
                 }
             }
-            catch (Exception ex)
-            {
-                msg = "Error occured:" + ex.Message;
-            }
-            return msg;
-        }
-        public string Delete(string Id)
-        {
-            em.Remove(Guid.Parse(Id));
-            return "Deleted successfully";
+            return new JsonResult { Data = new { status = status } };
         }
 
+        [HttpGet]
+        public ActionResult Delete(Guid id)
+        {
+            var v = _eventRepository.GetById(id);
+            return View(v);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult DeleteEmp(Guid id)
+        {
+            _eventRepository.Remove(id);
+            return new JsonResult { Data = new { status = true } };
+        }
     }
 }
-
-//public interface IDBContext
-//{
-
-//}
-
-
-//public interface IProductRepository
-//{
-
-//}
-
-//public class Product
-//{
-
-//}
-
-
-
-//public interface IProductRepository : IDisposable
-//{
-//    void AddProduct(Product product);
-//    int SaveChanges();
-//    IOrderedQueryable<Product> GetAllProductsOrderedByName();
-//}
-
-//public class ProductRepository : IProductRepository
-//{
-//    private readonly IDBContext _dbContext;
-//    public ProductRepository() : this(new ProductContext())
-//    {
-//    }
-//    public ProductRepository(IDBContext dbContext)
-//    {
-//        _dbContext = dbContext;
-//    }
-//    public void Dispose()
-//    {
-//        _dbContext.Dispose();
-//    }
-//}
-
-//public interface IProductContext : IDisposable
-//{
-//    IDbSet<Product> Products { get; set; }
-//    int SaveChanges();
-//}
-
-//public class ProductContext : DbContext, IProductContext
-//{
-//    public IDbSet<Product> Products { get; set; }
-
-//}
-
-//public class FakeDbSet<T> : IDbSet<T> where T : class
-//{
-//    ObservableCollection<T> _data;
-//    IQueryable _query;
-//    public FakeDbSet()
-//    {
-//        _data = new ObservableCollection<T>();
-//        _query = _data.AsQueryable();
-//    }
-
-//    public T Add(T item)
-//    {
-//        _data.Add(item);
-//        return item;
-//    }
-
-//    public T Remove(T item)
-//    {
-//        _data.Remove(item);
-//        return item;
-//    }
-//}
-
-//class FakeDbContext : IDBContext
-//{
-//    public FakeDbContext()
-//    {
-//        Products = new FakeDbSet<Product>();
-//    }
-//    public IDbSet<Product> Products { get; set; }
-
-//    public int SaveChanges()
-//    {
-//        return 0;
-//    }
-
-//    public void Dispose()
-//    {
-//        throw new NotImplementedException();
-//    }
-//}

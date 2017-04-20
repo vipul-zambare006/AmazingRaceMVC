@@ -13,9 +13,10 @@ namespace AmazingRaceMVC
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+            //AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
         }
 
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)

@@ -9,48 +9,106 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Amazing Race", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Events", "Index", "Event")</li>
-                    <li>@Html.ActionLink("Configure Pitstops", "Index", "Pitstop")</li>
-                    <li>@Html.ActionLink("Manage Team", "Index", "Team")</li>
-
-                    <li>@Html.ActionLink("Leaderboard", "Index", "Leaderboard")</li>
-                    <li>@Html.ActionLink("Contact", "Index", "Contact")</li>
-                    <li>@Html.ActionLink("About us", "Index", "AboutUs")</li>
-                </ul>
-            </div>
-        </div>
-    </div>*@
-
-
     <div class="container body-content">
         @RenderBody()
-        @*<hr />*@
         <footer id="myfooter">
             <p>&copy; @DateTime.Now.Year - Enterprise .NET Project By Team-07</p>
         </footer>
     </div>
-
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jqueryval")
 
-  @*  <script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
-    @*<script src="~/Scripts/bootstrap.min.js"></script>*@
+    @*<script>
+        $(document).ready(function () {
+            var oTable = $('#Event_table').DataTable({
+                "ajax": {
+                    "url": '/Event/GetEvents',
+                    "type": "get",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "EventName", "autowidth": true },
+                    { "data": "EventDateTime", "autowidth": true },
+                    { "data": "City", "autowidth": true },
+                    {
+                        "data": "Id", "width": "50px",
+                        "render": function (data) {
+                            return '<a class="popup" href ="/home/save/' + data + '">Show Pitstops</a>'
+                        }
+                    },
+                    {
+                        "data": "Id", "width": "50px",
+                        "render": function (data) {
+                            return '<a class="popup" href ="/home/save/' + data + '">Edit</a>'
+                        }
+                    },
+                    {
+                        "data": "Id", "width": "50px",
+                        "render": function (data) {
+                            return '<a class="popup" href ="/home/delete/' + data + '">Delete</a>'
+                        }
+                    }
+                ]
+            });
+
+            $('.tablecontainer').on('click', 'a.popup', function (e) {
+                e.preventDefault();
+                openPopup($(this).attr('href'));
+            });
+
+            $('.popup').on('click', 'a.popup', function (e) {
+                alert("popup called");
+                e.preventDefault();
+                openPopup($(this).attr('href'));
+            });
+
+            function openPopup(pageurl) {
+                var $pagecontent = $('<div/>');
+                $pagecontent.load(pageurl, function () {
+                    $('#popupform', $pagecontent).removeData('validator');
+                    $('#popupform', $pagecontent).removeData('unobtrusiveValidation');
+                    $.validator.unobtrusive.parse('form');
+                });
+
+                $dialog = $('<div class="popupwindow" style="overflow:auto"></div>')
+                    .html($pagecontent)
+                    .dialog({
+                        draggable: false,
+                        autoOpen: false,
+                        resizable: false,
+                        model: true,
+                        title: 'Popup Dialog',
+                        height: 600,
+                        width: 600,
+                        close: function () {
+                            $dialog.dialog('distroy').remove();
+                        }
+                    })
+
+                $('popupwindow').on('submit', '#popupform', function (e) {
+                    var url = $('#popupform')[0].action
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $('#pupupform').serialize(),
+                        success: function (data) {
+                            if (data.status) {
+                                $dialog.dialog('close');
+                                oTable.ajax.reload();
+                            }
+                        }
+                    })
+                    e.preventDefault();
+                })
+                $dialog.dialog('open');
+            }
+        });
+
+    </script>*@
+
+    @RenderSection("scripts", required: false)
+    @RenderSection("scripts1", required: false)
 </body>
 </html>

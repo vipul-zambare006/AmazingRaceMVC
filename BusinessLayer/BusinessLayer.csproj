@@ -47,10 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventManagement.cs" />
     <Compile Include="EventRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StaffRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

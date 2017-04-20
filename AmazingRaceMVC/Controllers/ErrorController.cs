@@ -6,12 +6,12 @@ using System.Web.Mvc;
 
 namespace AmazingRaceMVC.Controllers
 {
-    public class PitstopController : Controller
+    public class ErrorController : Controller
     {
-        // GET: Pitstop
+        // GET: Error
         public ActionResult Index()
         {
-            return View();
+            return View("Error");
         }
     }
 }

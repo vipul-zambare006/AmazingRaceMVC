@@ -17,19 +17,16 @@ namespace AmazingRaceMVC.Controllers
             return View();
         }
 
-        // GET: Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(Staff model)
         {
-
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
             Staff user = new Staff() { UserName = model.UserName, Password = model.Password };
-
             user = user.GetUserDetails(user);
 
             if (user != null)
@@ -42,7 +39,8 @@ namespace AmazingRaceMVC.Controllers
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                 var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                 HttpContext.Response.Cookies.Add(authCookie);
-                return RedirectToAction("Index", "Admin");
+                //return RedirectToAction("Index", "Admin");
+                return RedirectToAction("Index", "Event");
             }
 
             else
@@ -53,12 +51,9 @@ namespace AmazingRaceMVC.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            
-           // AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            // AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }

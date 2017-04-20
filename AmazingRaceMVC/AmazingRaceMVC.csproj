@@ -198,7 +198,11 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Areas\Staff\Views\web.config" />
+    <Content Include="Areas\PublicUser\Views\web.config" />
+    <Content Include="Home\Delete.cshtml" />
+    <Content Include="Home\Index.cshtml" />
+    <Content Include="Home\Save.cshtml" />
     <Content Include="Scripts\EventDisplayGrid.js" />
     <Content Include="Scripts\i18n\grid.locale-ar.js" />
     <Content Include="Scripts\i18n\grid.locale-bg.js" />
@@ -243,34 +247,41 @@
     <Content Include="Scripts\i18n\grid.locale-tw.js" />
     <Content Include="Scripts\i18n\grid.locale-ua.js" />
     <Content Include="Scripts\i18n\grid.locale-vi.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Scripts\jquery-ui-1.10.0.js" />
-    <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.jqGrid.js" />
     <Content Include="Scripts\jquery.jqGrid.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\PublicUser\PublicUserAreaRegistration.cs" />
+    <Compile Include="Areas\Staff\StaffAreaRegistration.cs" />
     <Compile Include="Controllers\AboutUsController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LeaderboardController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\PitstopController.cs" />
-    <Compile Include="Controllers\Product.cs" />
-    <Compile Include="Controllers\ProductContext.cs" />
-    <Compile Include="Controllers\Repository.cs" />
     <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="CustomErrorHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HandleErrorAttribute.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -283,15 +294,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\AboutUs\Index.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Pitstop\Index.cshtml" />
     <Content Include="Views\Leaderboard\Index.cshtml" />
     <Content Include="Views\Team\Index.cshtml" />
-    <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\_StaffMenu.cshtml" />
+    <Content Include="Views\Event\Save.cshtml" />
+    <Content Include="Views\Event\Delete.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -301,6 +313,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\PublicUser\Controllers\" />
+    <Folder Include="Areas\PublicUser\Models\" />
+    <Folder Include="Areas\PublicUser\Views\Shared\" />
+    <Folder Include="Areas\Staff\Controllers\" />
+    <Folder Include="Areas\Staff\Models\" />
+    <Folder Include="Areas\Staff\Views\Shared\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">

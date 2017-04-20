@@ -1,0 +1,28 @@
+﻿@model AmazingRaceMVC.Models.Event
+
+
+<h2>Delete</h2>
+
+@using (Html.BeginForm("delete", "event", FormMethod.Post, new { id = "popupform" }))
+{
+    @Html.HiddenFor(a => a.Id)
+    <div>
+        <label>First Name</label>
+        <p>@Model.EventName</p>
+    </div>
+
+    <div>
+        <label>Last Name</label>
+        <p>@Model.EventDateTime</p>
+    </div>
+
+    <div>
+        <label>Emial</label>
+        <p>@Model.City</p>
+    </div>
+    
+    <div>
+        <input type="submit" value="delete" />
+    </div>
+}
+
