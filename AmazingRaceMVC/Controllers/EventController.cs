@@ -3,6 +3,7 @@ using BusinessLayer;
 using System.Linq;
 using AmazingRaceMVC.Models;
 using System;
+using System.Globalization;
 
 namespace AmazingRaceMVC.Controllers
 {
@@ -23,42 +24,81 @@ namespace AmazingRaceMVC.Controllers
             return Json(new { data = raceEvents }, JsonRequestBehavior.AllowGet);
         }
 
+        //[HttpGet]
+        //public ActionResult Save(string id)
+        //{
+        //    if (!string.IsNullOrEmpty(id))
+        //    {
+        //        var v = _eventRepository.GetById(Guid.Parse(id));
+        //        return View(v);
+        //    }
+        //    return View();
+        //}
+
         [HttpGet]
-        public ActionResult Save(string id)
+        public JsonResult Save(string id)
         {
-            if(!string.IsNullOrEmpty(id))
+            var status = false;
+            var eventModel = new Event();
+            if (!string.IsNullOrEmpty(id))
             {
-                var v = _eventRepository.GetById(Guid.Parse(id));
-                return View(v);
+                 eventModel = _eventRepository.GetById(Guid.Parse(id));
+                  if(eventModel != null)
+                    {
+                        status = true;
+                    }
             }
-            return View();
+            else
+            {
+                status = false;
+            }
+
+            return Json(new { status = status, eventModelJson = eventModel }, JsonRequestBehavior.AllowGet);
+            //var Data = new JsonResult(Data =  new { status = status, eventModelJson = eventModel });
+            //return JsonResult(Data , JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult Save(Event raceEvent)
+        public JsonResult Save(Event raceEvent)
         {
             bool status = false;
-            //Validation
-            if (ModelState.IsValid)
+            string msg = "";
+            try
             {
-                if (raceEvent != null)
+                if (ModelState.IsValid)
                 {
-                    var v = _eventRepository.GetById(raceEvent.Id);
+                    if (raceEvent != null)
+                    {
+                        if (raceEvent.Id != Guid.Empty)
+                        {
+                            var objEvent = _eventRepository.GetById(raceEvent.Id);
 
-                    if (v != null)
-                    {
-                        v.EventName = raceEvent.EventName;
-                        v.EventDateTime = raceEvent.EventDateTime;
-                        v.City = raceEvent.City;
-                        //v.pitstops = raceEvent.pitstops;
-                    }
-                    else
-                    {
-                        _eventRepository.Add(raceEvent);
+                            if (objEvent != null)
+                            {
+                                objEvent.EventName = raceEvent.EventName;
+                                objEvent.EventDateTime = raceEvent.EventDateTime;
+                                objEvent.City = raceEvent.City;
+                                //v.pitstops = raceEvent.pitstops;
+                                status = true;
+                                _eventRepository.update(objEvent);
+                            }
+                        }
+                        else
+                        {
+                            _eventRepository.Add(raceEvent);
+                            status = true;
+                        }
+                        return new JsonResult { Data = new { status = status, msg = msg } };
                     }
                 }
             }
-            return new JsonResult { Data = new { status = status } };
+            catch (Exception ex)
+            {
+                status = false;
+                msg = ex.Message;
+            }
+            return new JsonResult { Data = new { status = status, msg = msg } };
+            //RedirectToAction("Index","Event");
         }
 
         [HttpGet]
@@ -77,3 +117,8 @@ namespace AmazingRaceMVC.Controllers
         }
     }
 }
+
+//class EventPitstopViewModel
+//{
+//    public Guid  { get; set; }
+//}

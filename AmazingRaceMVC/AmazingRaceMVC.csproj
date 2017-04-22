@@ -198,8 +198,6 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\Staff\Views\web.config" />
-    <Content Include="Areas\PublicUser\Views\web.config" />
     <Content Include="Home\Delete.cshtml" />
     <Content Include="Home\Index.cshtml" />
     <Content Include="Home\Save.cshtml" />
@@ -267,8 +265,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\PublicUser\PublicUserAreaRegistration.cs" />
-    <Compile Include="Areas\Staff\StaffAreaRegistration.cs" />
     <Compile Include="Controllers\AboutUsController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
@@ -313,12 +309,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\PublicUser\Controllers\" />
-    <Folder Include="Areas\PublicUser\Models\" />
-    <Folder Include="Areas\PublicUser\Views\Shared\" />
-    <Folder Include="Areas\Staff\Controllers\" />
-    <Folder Include="Areas\Staff\Models\" />
-    <Folder Include="Areas\Staff\Views\Shared\" />
     <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>

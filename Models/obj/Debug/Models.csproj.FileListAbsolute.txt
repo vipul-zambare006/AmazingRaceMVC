@@ -16,3 +16,4 @@ D:\Enterprise.NET Project\AmazingRaceMVC\Models\bin\Debug\EntityFramework.xml
 D:\Enterprise.NET Project\AmazingRaceMVC\Models\bin\Debug\EntityFramework.SqlServer.xml
 D:\Enterprise.NET Project\AmazingRaceMVC\Models\obj\Debug\Models.dll
 D:\Enterprise.NET Project\AmazingRaceMVC\Models\obj\Debug\Models.pdb
+D:\Enterprise.NET Project\AmazingRaceMVC\Models\obj\Debug\Models.csprojResolveAssemblyReference.cache

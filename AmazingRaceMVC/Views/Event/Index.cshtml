@@ -1,7 +1,4 @@
 ﻿@model AmazingRaceMVC.Models.Event
-@*@{
-    Layout = null;
-}*@
 <script>
     $(function () {
         $("#datepicker").datepicker();
@@ -17,7 +14,9 @@
 <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css" />
 
 <div style="width:90%; margin:auto" class="tablecontainer">
-    <a class="popup btn btn-primary" href="/event/save" style="margin-bottom:5px; margin-top:5px;">Add New Event</a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-bottom:5px; margin-top:5px;">Add New Event</button>
+    
+    <div class="rectBox"></div>
     <table id="Event_table">
         <thead>
             <tr>
@@ -31,14 +30,8 @@
         </thead>
     </table>
 
-    <h2>Modal Example</h2>
-    <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-    <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog" style="left : 0%">
-
+        <div class="modal-dialog modal-lg" style="position:initial; height : 500px">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -46,53 +39,87 @@
                     <h4 class="modal-title">Save Event</h4>
                 </div>
                 <div class="modal-body">
-                   
-                    @using (Html.BeginForm("save", "event", FormMethod.Post, new { id = "popupform" }))
-                    {
-                        if (Model != null)
-                        {
-                            @Html.HiddenFor(a => a.Id);
-                        }
+                    <div id="successDiv" class="alert alert-success hidden"></div>
+                    <div id="failDiv" class="alert alert-danger hidden"></div>
 
+                    <form method="post" id="eventAddForm">
+                        @Html.HiddenFor(a => a.Id, new { Id = "eventId" })
                         <div class="form-group">
-                            <label>Event Name</label>
-                            @Html.TextBoxFor(a => a.EventName, new { @class = "form-control" })
+                            <label>Event Name</label> <span style="color:red"> *</span>
+                            @Html.TextBoxFor(a => a.EventName, new { @class = "form-control", autocomplete = "off" })
                             @Html.ValidationMessageFor(a => a.EventName)
                         </div>
-
                         <div class="form-group">
-                            <label>Date</label>
-                            @Html.TextBoxFor(a => a.EventDateTime, new { @class = "form-control", id = "datepicker" })
+                            <label>Event Date</label> <span style="color:red"> *</span>
+                            @Html.TextBoxFor(a => a.EventDateTime, new { @class = "form-control", Id = "datepicker", @readonly = "true", autocomplete = "off" })
                             @Html.ValidationMessageFor(a => a.EventDateTime)
                         </div>
-
                         <div class="form-group">
-                            <label>City</label>
-                            @Html.TextBoxFor(a => a.City, new { @class = "form-control" })
+                            <label>City</label> <span style="color:red"> *</span>
+                            @Html.TextBoxFor(a => a.City, new { @class = "form-control", autocomplete = "off" })
                             @Html.ValidationMessageFor(a => a.City)
                         </div>
-
-                        //TODO: Pitstop map code will come here.
-
+                        @*//TODO: Pitstop map code will come here.*@
                         <div>
                             <button type="submit" value="save" class="btn btn-success">Save</button>
                         </div>
-                    }
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Close
+                    </button>
                 </div>
             </div>
-
         </div>
     </div>
+
+    @*delete modal*@
+    <div class="modal fade" id="myDeleteModal" role="dialog">
+        <div class="modal-dialog" style="left : 0%">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Delete Event</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="successDiv" class="alert alert-success hidden"></div>
+                    <div id="failDiv" class="alert alert-danger hidden"></div>
+                    <input type="hidden" id="eventId" />
+                    <span>Are you sure want to delete this Event?</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="deletePopupBtn" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Pitstop modal*@
+    <div class="modal fade" id="myPitstopModal" role="dialog">
+        <div class="modal-dialog" style="left : 0%">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Save Pitstops</h4>
+                </div>
+                <div class="modal-body">
+                    <h3>Pitstop Map will come here </h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="pitstopPopupBtn" class="btn btn-success" data-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
-@*<div class="container">
-
-</div>*@
-
-
 @section scripts2 {
-<script src="~/Scripts/EventDisplayGrid.js"></script>
+    <script src="~/Scripts/EventDisplayGrid.js"></script>
 }

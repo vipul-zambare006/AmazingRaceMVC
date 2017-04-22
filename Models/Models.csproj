@@ -50,6 +50,8 @@
     <Compile Include="Event.cs" />
     <Compile Include="Pitstop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Staff.cs" />
+    <Compile Include="Team.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

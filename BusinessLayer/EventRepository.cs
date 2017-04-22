@@ -17,7 +17,7 @@ namespace BusinessLayer
 
         }
 
-        public IList<Event> GetAll()
+        public IEnumerable<Event> GetAll()
         {
             return context.Events.ToList();
         }
@@ -26,6 +26,7 @@ namespace BusinessLayer
         {
             if (context != null && context.Events != null)
             {
+                if (entity.Id == Guid.Empty) entity.Id = Guid.NewGuid();
                 context.Events.Add(entity);
                 context.SaveChanges();
             }

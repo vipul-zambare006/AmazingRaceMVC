@@ -2,11 +2,6 @@
 @{
     Layout = null;
 }
-<script>
-    $(function () {
-        $("#datepicker").datepicker();
-    });
-</script>
 <h2>Save</h2>
 @using (Html.BeginForm("save", "event", FormMethod.Post, new { id = "popupform" }))
 {
@@ -37,3 +32,9 @@
         <input type="submit" value="save" class="btn-primary" />
     </div>
 }
+
+@*<script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+</script>*@
