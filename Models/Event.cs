@@ -18,6 +18,6 @@ namespace AmazingRaceMVC.Models
         [Required]
         public String City { get; set; }
         //[ForeignKey("EventId")]
-        public ICollection<Pitstop> pitstops { get; set; }
+        public virtual ICollection<Pitstop> Pitstops { get; set; }
     }
 }
