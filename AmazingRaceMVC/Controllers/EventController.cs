@@ -1,9 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using BusinessLayer;
-using System.Linq;
 using AmazingRaceMVC.Models;
-using System;
-using System.Globalization;
+using Models;
+using System.Collections.Generic;
 
 namespace AmazingRaceMVC.Controllers
 {
@@ -11,7 +11,6 @@ namespace AmazingRaceMVC.Controllers
     public class EventController : Controller
     {
         EventRepository _eventRepository = new EventRepository();
-
         public ActionResult Index()
         {
             return View();
@@ -24,17 +23,6 @@ namespace AmazingRaceMVC.Controllers
             return Json(new { data = raceEvents }, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpGet]
-        //public ActionResult Save(string id)
-        //{
-        //    if (!string.IsNullOrEmpty(id))
-        //    {
-        //        var v = _eventRepository.GetById(Guid.Parse(id));
-        //        return View(v);
-        //    }
-        //    return View();
-        //}
-
         [HttpGet]
         public JsonResult Save(string id)
         {
@@ -42,31 +30,46 @@ namespace AmazingRaceMVC.Controllers
             var eventModel = new Event();
             if (!string.IsNullOrEmpty(id))
             {
-                 eventModel = _eventRepository.GetById(Guid.Parse(id));
-                  if(eventModel != null)
-                    {
-                        status = true;
-                    }
+                eventModel = _eventRepository.GetById(Guid.Parse(id));
+                if (eventModel != null)
+                {
+                    status = true;
+                }
             }
             else
             {
                 status = false;
             }
-
             return Json(new { status = status, eventModelJson = eventModel }, JsonRequestBehavior.AllowGet);
-            //var Data = new JsonResult(Data =  new { status = status, eventModelJson = eventModel });
-            //return JsonResult(Data , JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult Save(Event raceEvent)
+        public JsonResult Save(Event raceEvent, List<string> latlngArray)
         {
+            if (latlngArray != null)
+            {
+                List<Pitstop> pitstops = new List<Pitstop>();
+                foreach (var item in latlngArray)
+                {
+                    var testArray = item.Split('_');
+                    pitstops.Add(new Pitstop
+                    {
+                        Id = Guid.NewGuid(),
+                        Location = testArray[0],
+                        Order = Convert.ToInt32(testArray[1]),
+                        Name = "test name",
+                        Clue = "Tst clue"
+                    });
+                }
+
+            }
+
             bool status = false;
             string msg = "";
             try
             {
-                if (ModelState.IsValid)
-                {
+                //if (ModelState.IsValid)
+                //{
                     if (raceEvent != null)
                     {
                         if (raceEvent.Id != Guid.Empty)
@@ -90,7 +93,7 @@ namespace AmazingRaceMVC.Controllers
                         }
                         return new JsonResult { Data = new { status = status, msg = msg } };
                     }
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -98,7 +101,6 @@ namespace AmazingRaceMVC.Controllers
                 msg = ex.Message;
             }
             return new JsonResult { Data = new { status = status, msg = msg } };
-            //RedirectToAction("Index","Event");
         }
 
         [HttpGet]
@@ -117,8 +119,3 @@ namespace AmazingRaceMVC.Controllers
         }
     }
 }
-
-//class EventPitstopViewModel
-//{
-//    public Guid  { get; set; }
-//}
