@@ -16,9 +16,12 @@ namespace AmazingRaceMVC.Controllers
             return View();
         }
 
+        public ActionResult Myleaderboard()
+        {
+            return View();
+        }
 
-      
-        
+
         public string[] Initialize(string[] initLeaderboard)
         {
             if (initLeaderboard != null)

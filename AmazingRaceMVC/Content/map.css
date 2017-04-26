@@ -1,4 +1,8 @@
 #map {
-    height: 330px;
-    width: 914px;
+    height: 419px;
+    width: 1390px;
+    text-align: center;
+    margin: 36px auto;
+    left: 5%;
+    position:absolute;
 }
