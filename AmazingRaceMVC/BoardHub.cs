@@ -12,22 +12,28 @@ namespace AmazingRaceMVC
     
     public class BoardHub : Hub
     {
-        public readonly BoardUpdate _boardUpdate;
+        //private static IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<BoardHub>();
 
-
-
-        public BoardHub() : this(BoardUpdate.Instance) { }
-
-        public BoardHub(BoardUpdate boardUpdate)
+        public void GetTeam(object[] teams)
         {
-            _boardUpdate = boardUpdate;
-
+            Clients.All.getAllTeams(teams);
         }
+        //public readonly BoardUpdate _boardUpdate;
 
-        public IEnumerable<Board> GetAllRows()
-        {
-            return (IEnumerable<Board>)_boardUpdate.GetAllRows();
-        }
+
+
+        //public BoardHub() : this(BoardUpdate.Instance) { }
+
+        //public BoardHub(BoardUpdate boardUpdate)
+        //{
+        //    _boardUpdate = boardUpdate;
+
+        //}
+
+        //public async Task<IEnumerable<Board>> GetAllRows()
+        //{
+        //    return await _boardUpdate.GetAllRows();
+        //}
 
     }
 }

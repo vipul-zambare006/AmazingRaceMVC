@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
 using System.Web;
+using System.Web.Http;
 
 
 
@@ -20,9 +21,11 @@ namespace AmazingRaceMVC
             //HttpConfiguration config = new HttpConfiguration();
 
             //config.Routes.MapHttpRoute(
-            //    name: "MapsApi",
-            //    routeTemplate: "{Map/Execute}"
+            //    name: "DefaultApi",
+            //    routeTemplate: "{controller}/{action}"
             //);
+
+            //app.UseWebApi(config);
         }
     }
 }

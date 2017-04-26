@@ -45,7 +45,7 @@ namespace AmazingRaceMVC
             
             using (HttpClient httpClient = new HttpClient())
             {
-                var uri = Util.getServiceUri("Execute");
+                var uri = Util.getServiceUri("Initialise");
                 var response = await httpClient.GetAsync(uri);
                 return (await response.Content.ReadAsAsync<IEnumerable<Board>>());
             }

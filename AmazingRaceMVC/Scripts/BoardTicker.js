@@ -81,15 +81,26 @@ $(function () {
     //    });
     //}
 
-    function init() {
-        ticker.server.getAllRows().done(function (boards) {
+    //function init() {
+    //    ticker.server.getAllRows().done(function (boards) {
+    //        $teamTableBody.empty();
+    //        $.each(boards, function () {
+    //            var board = this;
+    //            $teamTableBody.append(rowTemplate.supplant(board));
+    //        });
+    //    });
+    //}
+
+    
+        ticker.client.getAllTeams = function (boards) {
+            debugger;
             $teamTableBody.empty();
             $.each(boards, function () {
                 var board = this;
                 $teamTableBody.append(rowTemplate.supplant(board));
             });
-        });
-    }
+        }
+    
 
     // Add a client-side hub method that the server will call
     ticker.client.updateLeaderBoard = function (board) {
@@ -102,6 +113,6 @@ $(function () {
     }
 
     // Start the connection
-    $.connection.hub.start().done(init);
+    $.connection.hub.start();
 
 });

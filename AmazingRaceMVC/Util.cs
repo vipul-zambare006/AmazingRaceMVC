@@ -14,7 +14,7 @@ namespace AmazingRaceMVC
 
             // For IIS Express, use localhost:7734 
 
-            var uri = "http://localhost:7734/";
+            var uri = "http://localhost:65448/";
 
             // Get the root URI from Web.config
 
