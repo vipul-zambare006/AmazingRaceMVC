@@ -5,11 +5,19 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 
 namespace AmazingRaceMVC.Controllers
 {
     public class MapController : Controller
     {
+        private readonly object _updateLeaderBoardLock = new object();
+
+        private volatile bool _updatingLeaderBoard = false;
+
+        
+
         // GET: Map
         public ActionResult AmazingMap()
         {
@@ -17,22 +25,29 @@ namespace AmazingRaceMVC.Controllers
         }
 
         public ActionResult Myleaderboard()
-        {
+        public object[] Initialize(object[] initLeaderboard)
             return View();
         }
-
-
+      
+        
         public string[] Initialize(string[] initLeaderboard)
         {
             if (initLeaderboard != null)
             {
-                 return initLeaderboard;
+                var hubContext = GlobalHost.ConnectionManager.GetHubContext<BoardHub>();
+
+                hubContext.Clients.All.getAllTeams(initLeaderboard);
+                //Hub.Clients.All.getAllTeams(initLeaderboard);
+                
+                return initLeaderboard;
+                
             }
 
             return null;
         }
 
-
+  
+        
         
 
         public string Execute(string teamObject)
