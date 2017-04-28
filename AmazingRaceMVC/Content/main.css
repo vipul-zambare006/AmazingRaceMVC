@@ -8,3 +8,8 @@
     text-align: center;
     font-weight:bold;
 }
+
+.field-validation-error {
+    color: #F00;
+    font-weight: bold;
+}

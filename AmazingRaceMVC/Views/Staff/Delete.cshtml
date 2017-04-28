@@ -1,0 +1,26 @@
+﻿@model Models.Staff
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("delete", "Staff", FormMethod.Post, new { id = "PopupForm" }))
+{
+    @Html.HiddenFor(a => a.ID);
+
+    <div>
+        <label>Staff Name</label>
+        <p>@Model.Name</p>
+    </div>
+
+    <div>
+        <label>Staff Location</label>
+        <p>@Model.Location</p>
+    </div>
+
+    <div>
+        <input type="submit" value="Delete" />
+    </div>
+}

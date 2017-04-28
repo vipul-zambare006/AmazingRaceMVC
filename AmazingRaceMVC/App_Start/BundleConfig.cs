@@ -5,7 +5,6 @@ namespace AmazingRaceMVC
 {
     public class BundleConfig
     {
-        // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
             //bundles.UseCdn = true;
@@ -45,11 +44,7 @@ namespace AmazingRaceMVC
                       "~/Content/themes/base/jquery-ui.css"
                       ));
 
-
-    //< link href = "~/Content/themes/base/jquery-ui.css" rel = "stylesheet" />
-
-
-           //    BundleTable.EnableOptimizations = true;
+            //    BundleTable.EnableOptimizations = true;
         }
     }
 }

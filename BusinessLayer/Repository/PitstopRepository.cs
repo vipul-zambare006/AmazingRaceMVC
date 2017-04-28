@@ -9,15 +9,16 @@ namespace BusinessLayer.Repository
 {
     public class PitstopRepository
     {
-        private AmazingRaceDBContext amazingRacecontext;
-        public PitstopRepository(AmazingRaceDBContext context)
+        private AmazingRaceDBContext amazingRacecontext = new AmazingRaceDBContext();
+        public PitstopRepository()
         {
-            amazingRacecontext = context;
+            
         }
 
-        public IEnumerable<Pitstop> GetAll()
+        public IEnumerable<Pitstop> GetByEventId(Guid eventId)
         {
-            return amazingRacecontext.Pitstops.ToList();
+            return null;
+            //return amazingRacecontext.Pits
         }
 
         public void Add(Pitstop entity)

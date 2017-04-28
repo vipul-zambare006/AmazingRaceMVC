@@ -29,12 +29,6 @@
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        Login via
-                                        <div class="social-buttons">
-                                            <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Google</a>
-                                            @*<a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>*@
-                                        </div>
-                                        or
                                         @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                         {
                                             @Html.AntiForgeryToken()
@@ -47,7 +41,7 @@
                                             <div class="form-group">
                                                 <label class="sr-only" for="exampleInputPassword2">Password</label>
                                                 <input type="password" class="form-control" id="Password" name="Password" placeholder="Password" required>
-                                                <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                                              @*  <div class="help-block text-right"><a href="">Forget the password ?</a></div>*@
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary btn-block">Login</button>

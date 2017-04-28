@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.Optimization;
+using System.Data.Entity;
 
 namespace AmazingRaceMVC
 {
@@ -17,6 +18,7 @@ namespace AmazingRaceMVC
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<AmazingRaceDBContext>()) 
         }
 
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)

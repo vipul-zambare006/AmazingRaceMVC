@@ -4,6 +4,7 @@ using BusinessLayer;
 using AmazingRaceMVC.Models;
 using Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AmazingRaceMVC.Controllers
 {
@@ -11,6 +12,7 @@ namespace AmazingRaceMVC.Controllers
     public class EventController : Controller
     {
         EventRepository _eventRepository = new EventRepository();
+
         public ActionResult Index()
         {
             return View();
@@ -20,80 +22,90 @@ namespace AmazingRaceMVC.Controllers
         public JsonResult GetEvents()
         {
             var raceEvents = _eventRepository.GetAll();
-            return Json(new { data = raceEvents }, JsonRequestBehavior.AllowGet);
+            var eventJson = new List<EventViewModel>();
+            try
+            {
+                foreach (var item in raceEvents)
+                {
+                    eventJson.Add(new EventViewModel
+                    {
+                        Id = item.Id,
+                        Name = item.EventName,
+                        EventDate = item.EventDateTime,
+                        City = item.City
+                    });
+                }
+                return Json(new { data = eventJson }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpGet]
         public JsonResult Save(string id)
         {
             var status = false;
-            var eventModel = new Event();
-            if (!string.IsNullOrEmpty(id))
+            var eventModel = new EventViewModel();
+            try
             {
-                eventModel = _eventRepository.GetById(Guid.Parse(id));
-                if (eventModel != null)
+                if (!string.IsNullOrEmpty(id))
                 {
-                    status = true;
+                    var eventObj = _eventRepository.GetById(Guid.Parse(id));
+                    if (eventObj != null)
+                    {
+                        eventModel = new EventViewModel
+                        {
+                            Id = eventObj.Id,
+                            Name = eventObj.EventName,
+                            EventDate = eventObj.EventDateTime,
+                            City = eventObj.City
+                        };
+                        status = true;
+                    }
                 }
+                else
+                {
+                    status = false;
+                }
+                return Json(new { status = status, eventModelJson = eventModel }, JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (Exception ex)
             {
-                status = false;
+                return Json(new { status = status, msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { status = status, eventModelJson = eventModel }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult Save(Event raceEvent, List<string> latlngArray)
+        public JsonResult Save(Event raceEvent)
         {
-            if (latlngArray != null)
-            {
-                List<Pitstop> pitstops = new List<Pitstop>();
-                foreach (var item in latlngArray)
-                {
-                    var testArray = item.Split('_');
-                    pitstops.Add(new Pitstop
-                    {
-                        Id = Guid.NewGuid(),
-                        Location = testArray[0],
-                        Order = Convert.ToInt32(testArray[1]),
-                        Name = "test name",
-                        Clue = "Tst clue"
-                    });
-                }
-
-            }
-
             bool status = false;
             string msg = "";
             try
             {
-                //if (ModelState.IsValid)
-                //{
-                    if (raceEvent != null)
+                if (raceEvent != null)
+                {
+                    if (raceEvent.Id != Guid.Empty)
                     {
-                        if (raceEvent.Id != Guid.Empty)
-                        {
-                            var objEvent = _eventRepository.GetById(raceEvent.Id);
+                        var objEvent = _eventRepository.GetById(raceEvent.Id);
 
-                            if (objEvent != null)
-                            {
-                                objEvent.EventName = raceEvent.EventName;
-                                objEvent.EventDateTime = raceEvent.EventDateTime;
-                                objEvent.City = raceEvent.City;
-                                //v.pitstops = raceEvent.pitstops;
-                                status = true;
-                                _eventRepository.update(objEvent);
-                            }
-                        }
-                        else
+                        if (objEvent != null)
                         {
-                            _eventRepository.Add(raceEvent);
+                            objEvent.EventName = raceEvent.EventName;
+                            objEvent.EventDateTime = raceEvent.EventDateTime;
+                            objEvent.City = raceEvent.City;
                             status = true;
+                            _eventRepository.update(objEvent);
                         }
-                        return new JsonResult { Data = new { status = status, msg = msg } };
                     }
-                //}
+                    else
+                    {
+                        _eventRepository.Add(raceEvent);
+                        status = true;
+                    }
+                    return new JsonResult { Data = new { status = status, msg = msg } };
+                }
             }
             catch (Exception ex)
             {
@@ -101,6 +113,71 @@ namespace AmazingRaceMVC.Controllers
                 msg = ex.Message;
             }
             return new JsonResult { Data = new { status = status, msg = msg } };
+        }
+
+        [HttpGet]
+        public ActionResult SavePitstop(Guid id)
+        {
+            try
+            {
+                var raceEvent = _eventRepository.GetById(id);
+                var pitstops = raceEvent.Pitstops.OrderBy(x => x.Order).ToList();
+                var pitstopJson = new List<PitstopViewModel>();
+
+                foreach (var item in pitstops)
+                {
+                    pitstopJson.Add(new PitstopViewModel
+                    {
+                        Id = item.Id,
+                        Location = item.Location,
+                        Order = item.Order
+                    });
+                }
+                return Json(new { status = true, pitstops = pitstopJson }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        [ActionName("SavePitstop")]
+        public ActionResult SavePit(string eventId, string latLngString)
+        {
+            try
+            {
+                if (latLngString != null)
+                {
+                    var latlngarray = latLngString.Split('/');
+                    var raceEvent = _eventRepository.GetById(Guid.Parse(eventId));
+                    foreach (var item in latlngarray)
+                    {
+                        var pitstopArray = item.Split('_');
+                        var latlng = pitstopArray[0];
+                        var order = pitstopArray[1];
+                        List<Pitstop> pitstops = new List<Pitstop>();
+
+                        raceEvent.Pitstops.Add(new Pitstop
+                        {
+                            Id = Guid.NewGuid(),
+                            Location = latlng,
+                            Order = Convert.ToInt32(order),
+                            EventId = Guid.Parse(eventId)
+                        });
+                    }
+                    _eventRepository.Save();
+                    return new JsonResult { Data = new { status = true } };
+                }
+                else
+                {
+                    throw new Exception("Latitute Longitude not found") { };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult { Data = new { status = true, msg = ex.Message } };
+            }
         }
 
         [HttpGet]
@@ -115,6 +192,13 @@ namespace AmazingRaceMVC.Controllers
         public ActionResult DeleteEmp(Guid id)
         {
             _eventRepository.Remove(id);
+            return new JsonResult { Data = new { status = true } };
+        }
+
+        [HttpPost]
+        public ActionResult DeleteAllPitstops(Guid eventId)
+        {
+            _eventRepository.DeleteAllPitstop(eventId);
             return new JsonResult { Data = new { status = true } };
         }
     }

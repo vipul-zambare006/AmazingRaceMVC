@@ -1,0 +1,34 @@
+﻿@model Models.Staff
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Staff", FormMethod.Post, new { id = "PopupForm" }))
+{
+    if (Model != null)
+    {
+        @Html.HiddenFor(a => a.ID);
+
+    }
+
+    <div class="form-group">
+        <label>Staff Name</label>
+        @Html.TextBoxFor(a => a.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.Name)
+    </div>
+
+
+    <div class="form-group">
+        <label>Staff Location</label>
+        @Html.TextBoxFor(a => a.Location, new { @calss = "form-control" })
+        @Html.ValidationMessageFor(a => a.Location)
+    </div>
+
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+
+}

@@ -1,9 +1,4 @@
 ﻿@model AmazingRaceMVC.Models.Event
-<script>
-    $(function () {
-        $("#datepicker").datepicker();
-    });
-</script>
 @{
     ViewBag.Title = "Manage Events";
     Layout = "~/Views/Shared/_StaffMenu.cshtml";
@@ -12,7 +7,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
 <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css" />
-<link href="~/Content/map.css" rel="stylesheet" />
+@*<link href="~/Content/map.css" rel="stylesheet" />*@
 
 <div style="width:90%; margin:auto" class="tablecontainer">
     <button type="button" id="addNewEvent" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-bottom:5px; margin-top:5px;">Add New Event</button>
@@ -60,10 +55,6 @@
                             @Html.TextBoxFor(a => a.City, new { @class = "form-control", autocomplete = "off" })
                             @Html.ValidationMessageFor(a => a.City)
                         </div>
-                        <div class="form-group">
-                            <label>Choose Pitstops</label> <span style="color:red"> *</span>
-                            <div id="map"></div>
-                        </div>
                         <div>
                             <button type="submit" value="save" class="btn btn-success">Save</button>
                         </div>
@@ -103,7 +94,7 @@
 
     @*Pitstop modal*@
     <div class="modal fade" id="myPitstopModal" role="dialog">
-        <div class="modal-dialog" style="left : 0%">
+        <div class="modal-dialog modal-lg" style="left : 0%">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -111,7 +102,18 @@
                     <h4 class="modal-title">Save Pitstops</h4>
                 </div>
                 <div class="modal-body">
-                    <h3>Pitstop Map will come here </h3>
+                    <div id="successPitDiv" class="alert alert-success hidden"></div>
+                    <div id="failPitDiv" class="alert alert-danger hidden"></div>
+                    <div class="form-group">
+                        <button type="button" id="btnDeleteAllPitstop" class="btn btn-danger" data-dismiss="modal">Delete All Pitstops</button>
+                    </div>
+                    <div class="form-group">
+                        <label>Choose Pitstops</label> <span style="color:red"> *</span>
+                        <div id="map" style="height:500px; width:850px; text-align: center;
+    margin: auto auto;
+    left: 0%;
+    position: inherit;"></div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -123,11 +125,9 @@
 </div>
 
 @section scripts2 {
-
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="~/Scripts/jquery.easing.1.3.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU9Apji828jugAavQUu7ZSaPOqWxau-nQ"></script>/>
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU9Apji828jugAavQUu7ZSaPOqWxau-nQ"></script>
     <script src="~/Scripts/markerAnimate.js"></script>
     <script src="~/Scripts/SlidingMarker.min.js"></script>
     <script src="~/Scripts/EventDisplayGrid.js"></script>

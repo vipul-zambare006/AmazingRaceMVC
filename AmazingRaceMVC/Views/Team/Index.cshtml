@@ -1,123 +1,148 @@
-﻿
+﻿@model Models.Team
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Team";
+    Layout = "~/Views/Shared/_StaffMenu.cshtml";
 }
 
-<!DOCTYPE html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/Content/themes/base/jquery-ui.min.css" />
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.min.css" />
-</head>
+<div style="width:90%; margin:auto" class="tablecontainer">
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add New Team</button>
+    <table id="team_table">
+        <thead>
+            <tr>
+                <th>Team Name</th>
+                <th>Details</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+    </table>
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog" style="left : 0%">
 
-<body>
-    <div style="width:90%; margin:auto" class="tablecontainer">
-        <a class="popup btn btn-primary" href="/Team/Create" style="margin-bottom:20px; margin-top:20px;">Add New Team</a>
-        <table id="team_table">
-            <thead>
-                <tr>
-                    <th>Team ID</th>
-                    <th>Team Name</th>
-                    <th>Photo</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-        </table>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Save Team</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form method="post" id="PopupSaveForm">
+                        @Html.HiddenFor(a => a.ID, new { Id = "teamId" })
+                        <div class="form-group">
+                            <label>Team Name</label>
+                            @Html.TextBoxFor(a => a.Name, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(a => a.Name)
+                        </div>
+                        <div class="form-group">
+                            <label>Photo</label>
+                            <div class="panel panel-body" style="min-height:256px">
+                                <div class="col-md-9">
+                                    <div class="col-md-4">
+                                        <div class="btn btn-primary">
+                                            <input type="file" id="imageBrowes" />
+                                        </div>
+                                        <hr />
+                                        <div id="imgPreview" class="thumbnail" style="display:none">
+                                            <img class="img-responsive" id="targetImg" />
+                                            <div class="caption">
+                                                <a href="#" id="clearPreview"><i class="glyphicon glyphicon-trash"></i></a>
+                                                <span id="description"></span>
+                                            </div>
+                                            <a href="#" id="uploadImage" class="btn btn-default">Upload</a>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                                </div>
+                                @Html.HiddenFor(a => a.ImagePath, new { id = "imagepath" })
+                                <div class="dropdown" id="container">
+                                    @Html.DropDownList("Event_ID", null, "Choose Events", new { @class = "btn btn-primary dropdown-toggle" })
+                                </div>
+                           
+                        </div>                       
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="submit" value="save" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="https://cdn.dataTables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var oTable = $("#team_table").DataTable({
-                "ajax": {
-                    "url": '/Team/GetTeams', // load all team Info in table (GetTEam methods in controller)
-                    "type": 'get',
-                    "datatype": 'josn'
-                },
-                "columns": [
-                    { "data": "ID", "autowidth": true },
-                    { "data": "Name", "autowidth": true },
-                    { "data": "ImageFile", "autowidth": true },
-                    {
-                        "data": "ID", "width": "50px", "render": function (data) {
-                            return '<a class="popup" href="/Team/Edit' + data + '">Edit</a>'
-                        }
-                    },
-                    {
-                        "data": "ID", "width": "50px", "render": function (data) {
-                            return '<a class="popup" href="/Team/Delete' + data + '">Delete</a>'
-                        }
-                    }
-                ]
-            });
+@*delete modal*@
+<div class="modal fade" id="myDeleteModal" role="dialog">
+    <div class="modal-dialog" style="left : 0%">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Staff</h4>
+            </div>
+            <div class="modal-body">
+                <div id="successDiv" class="alert alert-success hidden"></div>
+                <div id="failDiv" class="alert alert-danger hidden"></div>
+                <input type="hidden" id="staffId" />
+                <span>Are you sure want to delete this Staff?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="deletePopupBtn" class="btn btn-danger" data-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-            $('.tablecontainer').on('click', 'a.popup', function (e) {
-                e.preventDefault();
-                openPopup($(this).attr('href'));
-            });
+@*detail modal*@
+<div class="modal fade" id="myDetailModal" role="dialog">
+    <div class="modal-dialog" style="left : 0%">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Team Details</h4>
+            </div>
+            @*<div class="modal-body" id="myTeamDetail">*@
+            <div class="modal-body">
+                <div>
+                    <label>Team Name</label>
+                    <div id="teamName"></div>
+                </div>
 
-            $('.popup').on('click', 'a.popup', function (e) {
-                alert("popup called");
-                e.preventDefault();
-                openPopup($(this).attr('href'));
-            });
+                <div>
+                    <label>Team Photo</label>                
+                    <div id="uploadedImage">
+                        
+                    </div>        
+                <hr />
+                <div>
+                    <label>Enrolled Events</label>
+                    <div id="teamEnrolledEvents"></div>
+                </div>
 
-            function OpenPopup(pageurl) {
-                var $PageContent = $("<div/>");
-                $PageContent.load(pageurl, function(){
-                    $("#PopupForm", $PageContent).remove('validator');
-                    $("#PopupForm", $PageContent).remove('unobtrusiveValidation');
-
-            });
-            
-                $dialog = $('<div class = "PopupWindow" style="overflow:auto"></div>')
-                        .html($PageContent)
-                        .dialog({
-                            draggable: false,
-                            autoOpen: false,
-                            resizable: false,
-                            model: true,
-                            title: 'Popup Dialog',
-                            height: 600,
-                            width: 600,
-                            close: function () {
-                                $dialog.dialog('distroy').remove();
-                            }
-                         });
-
-                $('PopupWindow').on('submit', '#PopupForm', function (e) {
-                    var url = $('#PopupForm')[0].action
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: $("#PopupForm").serialize(),
-                        success: function(data){
-                            if(data.status) {
-                                $dialog.dialog('close');
-                                oTable.ajax.reload();
-                                data.msg;
-                            }
-                        }
-                    })
-                    e.preventDefault(); 
-                })
-                $dialog.dialog('open');
-            }
-        });
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel-detail">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-    </script>
-</body>
+@section scripts2 {
+    <script src="~/Scripts/TeamDisplay.js"></script>
+}
 
-</html>
+
+
+
 

@@ -1,8 +1,5 @@
 ﻿using AmazingRaceMVC.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -39,7 +36,6 @@ namespace AmazingRaceMVC.Controllers
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                 var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                 HttpContext.Response.Cookies.Add(authCookie);
-                //return RedirectToAction("Index", "Admin");
                 return RedirectToAction("Index", "Event");
             }
 
@@ -48,12 +44,10 @@ namespace AmazingRaceMVC.Controllers
                 ModelState.AddModelError("", "Invalid login attempt.");
                 return View(model);
             }
-            return View();
         }
 
         public ActionResult LogOff()
         {
-            // AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
