@@ -24,7 +24,7 @@ google.maps.Marker.prototype.animateTo = function(newPosition, options) {
   if (options.easing != 'linear') {            
     if (typeof jQuery == 'undefined' || !jQuery.easing[options.easing]) {
       throw '"' + options.easing + '" easing function doesn\'t exist. Include jQuery and/or the jQuery easing plugin and use the right function name.';
-      return;
+      //return;
     }
   }
   

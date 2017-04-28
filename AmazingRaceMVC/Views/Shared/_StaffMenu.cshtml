@@ -22,6 +22,9 @@
                 <li class="active">@Html.ActionLink("Teams", "Index", "Team")</li>
                 <li class="active">@Html.ActionLink("Manage Staff", "Index", "Staff")</li>
                 <li class="active">@Html.ActionLink("Live Event Map", "Index", "Team")</li>
+                 <li class="active"><a href="#">Events</a></li>
+                <li class=""><a href="#">Teams</a></li>
+                <li class=""><a href="/Map/AmazingMap">Live Event Map</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if (@Session["Username"] != null && !string.IsNullOrEmpty(@Session["Username"].ToString()))

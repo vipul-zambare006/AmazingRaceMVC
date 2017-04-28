@@ -1,24 +1,23 @@
-﻿
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+﻿    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
 
     <link href="~/Content/map.css" rel="stylesheet" />
     <link href="~/Content/leaderboard.css" rel="stylesheet" />
 
-    
 
-    <h1><span class="yellow">Amazing Race</span></h1>
+
+    <h1 id="header1"><span class="yellow">Amazing Race</span></h1>
 
     <div id="floating-panel">
+        
+        <p><input type="text" id="No_of_teams" placeholder="Enter no of teams"></p>
         <input type="button" onclick="deleteMarkers();" value="Delete All Pitstops" />
         <input type="button" onclick="moveMarkerAlongPath()" value="Start Event" />
-
         <input type="button" onclick="setRoutes();" value="ROUTES" />
+        <a href="/Map/Myleaderboard">Live LeaderBoard</a>
+        <ul id="discussion">
 
-        <p><input type="text" id="No_of_teams" placeholder="Enter no of teams"></p>
-        <p id='team 1'>team: 0 at pitstop: 0</p>
-        <p id='team 2'>team: 0 at pitstop: 0</p>
-        <p id='team 3'>team: 0 at pitstop: 0</p>
+        </ul>
 
     </div>
 
@@ -32,13 +31,16 @@
 
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 
+
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+<script src="~/signalr/hubs"></script>
 <script src="~/Scripts/jquery.easing.1.3.js"></script>
 
 
+<script type="text/javascript">
 
 
-    <script type="text/javascript">
-      
 
     var markersArray = [];
     var pathArray = [];
@@ -49,7 +51,6 @@
     var labelIndex = 0;
     var poly;
     var image;
-    var movingImage;
 
     var directionDisplay;
     var directionsService;
@@ -63,7 +64,7 @@
     var startLocation = [];
     var endLocation = [];
     var timerHandle = [];
-   
+
 
     var speed = 0.000005, wait = 1;
     var infowindow = null;
@@ -74,10 +75,14 @@
 
     var Colors = ["#FF0000", "#00FF00", "#0000FF"];
 
-    var initObjectArray = [];    
-
+    var initObject;
+    var initObjectToString;
+    var initObjectArray = [];
+    var waypoints = [];
 
     function initMap() {
+
+
 
         infowindow = new google.maps.InfoWindow(
             {
@@ -87,12 +92,130 @@
 
         var singapore = { lat: 1.290270, lng: 103.851959 };
 
+        var styledMapType = new google.maps.StyledMapType(
+            [
+                { elementType: 'geometry', stylers: [{ color: '#ebe3cd' }] },
+                { elementType: 'labels.text.fill', stylers: [{ color: '#523735' }] },
+                { elementType: 'labels.text.stroke', stylers: [{ color: '#f5f1e6' }] },
+                {
+                    featureType: 'administrative',
+                    elementType: 'geometry.stroke',
+                    stylers: [{ color: '#c9b2a6' }]
+                },
+                {
+                    featureType: 'administrative.land_parcel',
+                    elementType: 'geometry.stroke',
+                    stylers: [{ color: '#dcd2be' }]
+                },
+                {
+                    featureType: 'administrative.land_parcel',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#ae9e90' }]
+                },
+                {
+                    featureType: 'landscape.natural',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#dfd2ae' }]
+                },
+                {
+                    featureType: 'poi',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#dfd2ae' }]
+                },
+                {
+                    featureType: 'poi',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#93817c' }]
+                },
+                {
+                    featureType: 'poi.park',
+                    elementType: 'geometry.fill',
+                    stylers: [{ color: '#a5b076' }]
+                },
+                {
+                    featureType: 'poi.park',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#447530' }]
+                },
+                {
+                    featureType: 'road',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#f5f1e6' }]
+                },
+                {
+                    featureType: 'road.arterial',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#fdfcf8' }]
+                },
+                {
+                    featureType: 'road.highway',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#f8c967' }]
+                },
+                {
+                    featureType: 'road.highway',
+                    elementType: 'geometry.stroke',
+                    stylers: [{ color: '#e9bc62' }]
+                },
+                {
+                    featureType: 'road.highway.controlled_access',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#e98d58' }]
+                },
+                {
+                    featureType: 'road.highway.controlled_access',
+                    elementType: 'geometry.stroke',
+                    stylers: [{ color: '#db8555' }]
+                },
+                {
+                    featureType: 'road.local',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#806b63' }]
+                },
+                {
+                    featureType: 'transit.line',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#dfd2ae' }]
+                },
+                {
+                    featureType: 'transit.line',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#8f7d77' }]
+                },
+                {
+                    featureType: 'transit.line',
+                    elementType: 'labels.text.stroke',
+                    stylers: [{ color: '#ebe3cd' }]
+                },
+                {
+                    featureType: 'transit.station',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#dfd2ae' }]
+                },
+                {
+                    featureType: 'water',
+                    elementType: 'geometry.fill',
+                    stylers: [{ color: '#b9d3c2' }]
+                },
+                {
+                    featureType: 'water',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#92998d' }]
+                }
+            ],
+            { name: 'Styled Map' });
+
 
         map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 8,
+            zoom: 15,
             center: singapore,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             gestureHandling: 'cooperative',
+            mapTypeControlOptions: {
+                mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
+                    'styled_map']
+            },
+
             styles: [
                 { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
                 { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
@@ -176,16 +299,26 @@
 
         });//map declaration ends
 
+        map.mapTypes.set('styled_map', styledMapType);
+        map.setMapTypeId('styled_map');
         //set the mapTilt to 45
         map.setTilt(45);
 
-        address = 'Singapore'
-        geocoder = new google.maps.Geocoder();
+
+
+       var geocoder = new google.maps.Geocoder();
+
         geocoder.geocode({
-            'address': address, componentRestrictions: {
-                country: 'SINGAPORE'
-            } }, function (results, status) {
-            map.fitBounds(results[0].geometry.viewport);
+            componentRestrictions: {
+                country: 'SGP'
+
+            }
+        }, function (results, status) {
+            if (status === 'OK') {
+                map.fitBounds(results[0].geometry.viewport);
+                map.setCenter(results[0].geometry.location);
+
+            }
         });
 
 
@@ -226,7 +359,7 @@
             zIndex: Math.round(latlng.lat() * -100000) << 5
         });
         marker.myname = label;
-
+        
 
         google.maps.event.addListener(marker, 'click', function () {
             infowindow.setContent(contentString);
@@ -239,8 +372,15 @@
     function setRoutes() {
 
         var directionsDisplay = new Array();
+        var teamCount = document.getElementById('No_of_teams').value;
 
-        for (var i = 0; i < pathArray.length; i++) {
+
+        for (var i = 1; i <= teamCount; i++) {
+
+            waypoints.push({ location: pathArray[i], stopover: true });
+        }
+
+        for (var i = 0; i < teamCount; i++) {
 
             var rendererOptions = {
                 map: map,
@@ -252,14 +392,17 @@
             var travelMode = google.maps.DirectionsTravelMode.DRIVING;
 
             var request = {
-                origin: pathArray[i],
-                destination: pathArray[i + 1],
+                origin: pathArray[0],
+                waypoints: waypoints,
+                optimizeWaypoints: true,
+                destination: pathArray[pathArray.length - 1],
                 travelMode: travelMode
             };
 
             directionsService.route(request, makeRouteCallback(i, directionsDisplay[i]));
 
         }
+
 
         function makeRouteCallback(routeNum, disp) {
             if (polyline[routeNum] && (polyline[routeNum].getMap() != null)) {
@@ -278,13 +421,13 @@
 
                     polyline[routeNum] = new google.maps.Polyline({
                         path: [],
-                        strokeColor: '#FFFF00',
+                        strokeColor: '#66ff33',
                         strokeWeight: 3
                     });
 
                     poly2[routeNum] = new google.maps.Polyline({
                         path: [],
-                        strokeColor: '#FFFF00',
+                        strokeColor: '#66ff33',
                         strokeWeight: 3
                     });
 
@@ -372,7 +515,7 @@
         }
         var p = polyline[index].GetPointAtDistance(d);
 
-        //map.panTo(p);
+        map.panTo(p);
         marker[index].setPosition(p);
         updatePoly(index, d);
         timerHandle[index] = setTimeout("animate(" + index + "," + (d + step) + ")", tick);
@@ -398,13 +541,14 @@
 
     function addLatLng(event) {
 
+
         var path = poly.getPath();
         path.push(event.latLng);
 
         //push to pathArray
         pathArray.push(event.latLng);
 
-        
+
         image = {
             url: "@Url.Content("~/Content/images/vlc.png")", // setting custom image for marker
             scaledSize: new google.maps.Size(22, 32)
@@ -428,234 +572,20 @@
             { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
 
 
-        
+
 
 
     }//addLatLng function ends
 
     var teamMarkers = [];
-
-
-
-    function moveMarkerAlongPath() {
-
-        //create symbol on line Path
-        //icon on the line
-
-        function create(htmlStr) {
-            var frag = document.createDocumentFragment(),
-                temp = document.createElement('div');
-            temp.innerHTML = htmlStr;
-            while (temp.firstChild) {
-                frag.appendChild(temp.firstChild);
-            }
-            return frag;
-        }
-
-        var lineSymbol = {
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 8,
-            strokeColor: '#00ced1' //#393
-        };
-        //document.getElementById('demo').innerHTML = pathArray[0];
-
-        movingImage = {
+    var movingImage = {
             url: "@Url.Content("~/Content/images/bluecircle.png")", // setting custom image for marker
         };
-        var teamCount = document.getElementById('No_of_teams').value;
-        //addRow(teamCount);
 
-        if (teamCount == "")
-            teamCount = 1;
+    var url_initialise = '@Url.Action("Initialize", "Map")';
+    var url_execute = '@Url.Action("Execute", "Map")'
 
-
-        for (i = 1; i <= teamCount; i++) {
-            var duration = Math.floor((Math.random() * 5000) + 3000);
-            var label = { text: "team " + i, color: "white" };
-
-            var teamMarker = new SlidingMarker({
-
-                position: pathArray[0],
-                //title:"#" + path.getLength(),
-                animation: google.maps.Animation.DROP,
-                label: label,
-                icon: movingImage,
-                draggable: true,
-                map: map,
-                duration: duration
-            });
-
-            teamMarkers.push(teamMarker);
-
-            initObject = {
-
-                totalPitstops: markersArray.length,
-                currentPitstops: 0,
-                remainingPitstops:0,
-                team: teamMarker.label.text
-            };
-            var initObjectToString = JSON.stringify(initObject);
-
-            initObjectArray.push(initObjectToString);
-            
-            //var fragment = create('<p id=label></p>');
-            //document.getElementById('floating-panel').appendChild(fragment);
-        }
-        
-        $.ajax({
-
-            type: "POST",
-            url: '@Url.Action("Initialize", "Map")', 
-            data: '{initLeaderboard: "' + initObjectArray + '" }',
-            contentType: "application/json; charset=utf-8",
-            dataType: "text",
-
-            success: function (data) {
-
-                //console.log(response.responseText);
-                alert("Successfully data Send " + data);
-            },
-            failure: function (response) {
-                console.log(response.responseText);
-            },
-            error: function (request, status, error) {
-
-                console.log(error);
-                alert("Error Sending Data (Initialize) Status is : " + status);
-            }
-
-        });
-
-
-        //checkPosition();
-        //setInterval(checkPosition, 100);
-
-        var currentPitStop = 0;
-        var table, rows, x, col1, col2;
-        var i = 1;
-
-        move = function (marker, latlngs, index, wait, newDestination) {
-            marker.setPosition(latlngs[index]);
-            currentPitStop = index + 1;
-
-            if (index != latlngs.length) {
-                // call the next "frame" of the animation
-                setTimeout(function () {
-                    currentPitStop = index + 1;
-                    //document.getElementById(marker.label).innerHTML = marker.label+' at pitstop: ' + currentPitStop;
-
-                    //table = document.getElementById("myTable");
-                    //rows = table.getElementsByTagName("TR");
-
-
-                    var markerStr = marker.label.text.charAt(marker.label.text.length - 1)
-                    var markerIndex = parseInt(markerStr);
-
-                    var teamObject = {
-
-                        currentPitstop: currentPitStop,
-                        totalPitstops: pitstops.length,
-                        remainingPitstops: pitstops.length - currentPitStop,
-                        team: marker.label.text
-                        
-                    };
-
-                    $.ajax({
-
-                        type: "POST",
-                        url: '@Url.Action("Execute", "Map")',
-                        data: '{teamObject: "' + JSON.stringify(teamObject) + '" }',
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "text",
-
-                        success: function (data) {
-
-                            //console.log(response.responseText);
-                            alert("Data Send Successfully: " + data);
-                        },
-                        failure: function (response) {
-                            console.log(response.responseText);
-                        },
-                        error: function (request, status, error) {
-
-                            console.log(error);
-                            alert("Error in Sending Data (Execute) Status: " + status);
-                        }
-
-                    });
-
-
-                    //col1 = rows[markerIndex].getElementsByTagName("TD")[1];
-                    //col2 = rows[markerIndex].getElementsByTagName("TD")[2];
-                    //col3 = rows[markerIndex].getElementsByTagName("TD")[3];
-                    //col1.innerHTML = " " + marker.label.text
-                    //col2.innerHTML = " " + currentPitStop;
-                    //col3.innerHTML = " " + (pathArray.length - currentPitStop)
-                    //sortTable(2);
-                    //newsortTable("myTable", 2);
-                    //newsortTable("myTable", 1);
-                    
-                    move(marker, latlngs, index + 1, wait, newDestination);
-                    //	  newsortTable('myTable', 0);
-                }, wait);
-                // sortTable(0);
-            }
-            else {
-                //assign new route
-                marker.position = marker.destination;
-                marker.destination = newDestination;
-            }
-        }
-        // begin animation, send back to origin after completion
-        for (i = 0; i < teamCount; i++) {
-            move(teamMarkers[i], pathArray, 0, teamMarkers[i].duration, teamMarkers[i].position);
-        }
-
-
-
-
-
-
-
-        //To move the Marker Along the Path or complex Polyline
-        // var line = new google.maps.Polyline({
-
-        //  path: pathArray,
-        //  icons:[{
-        //icon:lineSymbol,
-        //	offset:'100%'
-        //  }],
-
-        //  map:map
-        // });
-
-        //animateCircle(line);
-
-
-    }
-
-
-
-
-    //var currentPitStop = 1;
-    function checkPosition() {
-
-        //if (teamList[0].getLatLng().equals(markerList[1])) {
-        //    teamList[0].addStation(1, 2000);
-        //    return;
-        //}
-
-
-        for (i = currentPitStop; i <= pathArray.length; i++) {
-            if (teamMarker.position.equals(pathArray[i])) {
-                currentPitStop++;
-                document.getElementById('demo').innerHTML = 'At pitStop: ' + currentPitStop;
-                //clearInterval(intvl);
-
-            }
-        }
-
-    }
+    
 
 
 
@@ -791,11 +721,13 @@
     }//function sortTable ends
 
 
+
     </script>
     
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU9Apji828jugAavQUu7ZSaPOqWxau-nQ&callback=initMap"></script>
 <script src="~/Scripts/markerAnimate.js"></script>
 <script src="~/Scripts/SlidingMarker.min.js"></script>
+<script src="~/Scripts/Simulator.js"></script>
 <script type="text/javascript" src="http://www.geocodezip.com/scripts/v3_epoly.js"></script>
 
  }
