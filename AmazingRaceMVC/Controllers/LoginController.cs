@@ -48,7 +48,7 @@ namespace AmazingRaceMVC.Controllers
                 ModelState.AddModelError("", "Invalid login attempt.");
                 return View(model);
             }
-            return View();
+            
         }
 
         public ActionResult LogOff()
