@@ -14,19 +14,3 @@ c:\users\dell\documents\visual studio 2017\Projects\AmazingRaceMVC\BusinessLayer
 c:\users\dell\documents\visual studio 2017\Projects\AmazingRaceMVC\BusinessLayer\bin\Debug\EntityFramework.SqlServer.xml
 c:\users\dell\documents\visual studio 2017\Projects\AmazingRaceMVC\BusinessLayer\obj\Debug\BusinessLayer.dll
 c:\users\dell\documents\visual studio 2017\Projects\AmazingRaceMVC\BusinessLayer\obj\Debug\BusinessLayer.pdb
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Debug\BusinessLayer.dll.config
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Debug\BusinessLayer.dll
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Debug\BusinessLayer.pdb
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Debug\DataAccessLayer.dll
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Debug\EntityFramework.dll
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Debug\EntityFramework.SqlServer.dll
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Debug\Models.dll
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Debug\DataAccessLayer.pdb
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Debug\DataAccessLayer.dll.config
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Debug\Models.pdb
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Debug\Models.dll.config
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Debug\EntityFramework.xml
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\bin\Debug\EntityFramework.SqlServer.xml
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\obj\Debug\BusinessLayer.csprojResolveAssemblyReference.cache
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\obj\Debug\BusinessLayer.dll
-D:\Enterprise.NET Project\AmazingRaceMVC\BusinessLayer\obj\Debug\BusinessLayer.pdb

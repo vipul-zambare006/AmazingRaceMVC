@@ -48,9 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AmazingRaceDBContext.cs" />
-    <Compile Include="Migrations\201704150858384_Initial.cs" />
-    <Compile Include="Migrations\201704150858384_Initial.Designer.cs">
-      <DependentUpon>201704150858384_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201704271052088_initial.cs" />
+    <Compile Include="Migrations\201704271052088_initial.Designer.cs">
+      <DependentUpon>201704271052088_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,8 +66,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704150858384_Initial.resx">
-      <DependentUpon>201704150858384_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704271052088_initial.resx">
+      <DependentUpon>201704271052088_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

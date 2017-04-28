@@ -12,7 +12,7 @@ namespace DataAccessLayer.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(AmazingRaceDBContext context)
+        protected override void Seed(DataAccessLayer.AmazingRaceDBContext context)
         {
             //  This method will be called after migrating to the latest version.
 

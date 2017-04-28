@@ -11,18 +11,3 @@ c:\users\dell\documents\visual studio 2017\Projects\AmazingRaceMVC\DataAccessLay
 c:\users\dell\documents\visual studio 2017\Projects\AmazingRaceMVC\DataAccessLayer\obj\Debug\DataAccessLayer.csprojResolveAssemblyReference.cache
 c:\users\dell\documents\visual studio 2017\Projects\AmazingRaceMVC\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 c:\users\dell\documents\visual studio 2017\Projects\AmazingRaceMVC\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Debug\DataAccessLayer.dll.config
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Debug\DataAccessLayer.dll
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Debug\EntityFramework.dll
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.dll
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Debug\Models.dll
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Debug\Models.pdb
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Debug\Models.dll.config
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Debug\EntityFramework.xml
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\obj\Debug\DataAccessLayer.csprojResolveAssemblyReference.cache
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\obj\Debug\DataAccessLayer.dll
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.Initial.resources
-D:\Enterprise.NET Project\AmazingRaceMVC\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.GenerateResource.Cache
