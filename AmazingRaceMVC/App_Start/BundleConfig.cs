@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace AmazingRaceMVC
 {
@@ -7,8 +6,6 @@ namespace AmazingRaceMVC
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            //bundles.UseCdn = true;
-
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery-ui-{version}.js"
@@ -19,17 +16,11 @@ namespace AmazingRaceMVC
             "~/Scripts/jquery.validate.unobtrusive.min.js"
             ));
 
-            //var jqueryDatatableCdnPath = "//cdn.dataTables.net/1.10.13/js/jquery.dataTables.min.js";
-            //var jqueryBundle = new ScriptBundle("~/bundles/jqueryCdn", jqueryDatatableCdnPath)
-            //    .Include("~/Scripts/jquery.dataTables.min.js");
-
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
             "~/Scripts/jquery.validate.min.js",
             "~/Scripts/jquery.validate.unobtrusive.min.js"
             ));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
@@ -44,7 +35,7 @@ namespace AmazingRaceMVC
                       "~/Content/themes/base/jquery-ui.css"
                       ));
 
-            //    BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

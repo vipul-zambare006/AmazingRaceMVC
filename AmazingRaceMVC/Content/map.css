@@ -1,8 +1,79 @@
-#map {
+/*#map {
     height: 419px;
     width: 1390px;
     text-align: center;
     margin: 36px auto;
     left: 5%;
     position: absolute;
+}*/
+
+body {
+    background-color: #74AFAD;
+    padding: 20px;
+}
+
+#map {
+    height: 460px;
+    width: 1334px;
+    text-align: center;
+    margin: 5px auto;
+    left: 15px;
+    position: absolute;
+    top:21%;
+}
+
+.MapTitle {
+    font-size: 1.5em;
+    font-weight: 200;
+    line-height: 1em;
+    text-align: center;
+    color: #4DC3FA;
+}
+
+#floating-panel {
+    position: absolute;
+    top: 12%;
+    left: 55%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 5px solid #999;
+    text-align: center;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+    width: 500px;
+}
+
+/*#floating-panel {
+    position: absolute;
+    top: 543px;
+
+    left: 25%;
+
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+    width:500px;
+}*/
+
+a[href^="https://maps.google.com/maps"] {
+    display: none !important
+}
+
+a[href^="https://www.google.com/maps"] {
+    display: none !important
+}
+
+.gmnoprint a, .gmnoprint span {
+    display: none;
+}
+
+.gmnoprint div {
+    background: none !important;
 }

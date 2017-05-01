@@ -11,8 +11,7 @@ namespace AmazingRaceMVC.Models
 
         static List<Staff> users = new List<Staff>()
         {
-            new Staff() {UserName="Sam",Role="Admin",Password="123" },
-            new Staff() {UserName="team",Role="Team",Password="team" }
+            new Staff() {UserName="admin",Role="Admin",Password="123" },
         };
 
         public Staff GetUserDetails(Staff user)

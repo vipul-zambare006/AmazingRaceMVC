@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 namespace AmazingRaceMVC.Controllers
 {
+    [Authorize]
     public class StaffController : Controller
     {
         StaffRepository _staffRepository = new StaffRepository();

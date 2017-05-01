@@ -1,62 +1,57 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
+<link href="~/Content/menu.css" rel="stylesheet" />
 
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Amazing Race</a>
+        </div>
 
-    <link href="~/Content/menu.css" rel="stylesheet" />
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active">@Html.ActionLink("About Us", "Index", "AboutUs")</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+                    <ul id="login-dp" class="dropdown-menu">
+                        <li>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true)
 
-
-    <nav class="navbar navbar-default navbar-inverse" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Amazing Race</a>
-            </div>
-
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    @*<li><p class="navbar-text">Already have an account?</p></li>*@
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
-                        <ul id="login-dp" class="dropdown-menu">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                        {
-                                            @Html.AntiForgeryToken()
-                                            @Html.ValidationSummary(true)
-
-                                            <div class="form-group">
-                                                <label class="sr-only" for="exampleInputEmail2">Username</label>
-                                                <input type="text" class="form-control" id="UserName" name="UserName" placeholder="Username" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="sr-only" for="exampleInputPassword2">Password</label>
-                                                <input type="password" class="form-control" id="Password" name="Password" placeholder="Password" required>
-                                              @*  <div class="help-block text-right"><a href="">Forget the password ?</a></div>*@
-                                            </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="exampleInputEmail2">Username</label>
+                                            <input type="text" class="form-control" id="UserName" name="UserName" placeholder="Username" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Password" required>
+                                        </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary btn-block">Login</button>
                                             </div>
-                                        }
-                                    </div>
+                                    }
                                 </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-    </nav>
-    <!-- leaderboard will come here -->
-
-
+    </div>
+</nav>
 
 @{ Html.RenderPartial("BoardUpdatePartial"); }
 
@@ -65,8 +60,5 @@
     <script src="~/Scripts/jquery.signalR-2.2.1.js"></script>
     <!--Reference the autogenerated SignalR hub script. -->
     <script src="/signalr/hubs"></script>
-    <!--Reference the StockTicker script. -->
     <script src="~/Scripts/BoardTicker.js"></script>
-
 }
-       

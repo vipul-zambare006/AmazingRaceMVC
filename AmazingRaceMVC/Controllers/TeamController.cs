@@ -7,10 +7,10 @@ using System.Web.Mvc;
 
 namespace AmazingRaceMVC.Controllers
 {
+    [Authorize]
     public class TeamController : Controller
     {
         TeamRepository _teamRepository = new TeamRepository();
-
         public ActionResult Index()
         {
             EventRepository _ev = new EventRepository();
@@ -24,7 +24,6 @@ namespace AmazingRaceMVC.Controllers
             var teamData = _teamRepository.GetAll();
             return Json(new { data = teamData }, JsonRequestBehavior.AllowGet);
         }
-
 
         [HttpGet]
         public ActionResult Save(String ID)
@@ -91,6 +90,7 @@ namespace AmazingRaceMVC.Controllers
             _teamRepository.Remove(ID);
             return new JsonResult { Data = new { status = true } };
         }
+
         [HttpGet]
         public ActionResult Detail(String ID)
         {

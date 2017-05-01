@@ -1,34 +1,33 @@
-﻿
+﻿<link rel="stylesheet" href="~/Content/teamTable.css" />
 
+<h1>Welcome to Amazing Race</h1>
+@*<blink><h4>Live</h4></blink><h3>Leaderboard</h3>*@
+<blink><h2 style="color:red">Live Leaderboard</h2></blink>
+<div id="teamTable" style="overflow-x:auto;">
+    <table class="container">
+        <thead>
+            <tr>
+                <th><h1 class="white">Team Id</h1></th>
+                <th><h1 class="white">Team</h1></th>
+                <th><h1  class="white">Total PitStops</h1></th>
+                <th><h1 class="white">PitStops Cleared</h1></th>
+                <th><h1 class="white">Remaining</h1></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="loading" style="color:red"><td colspan="5">No ongoing event...</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<p id="demo"></p>
+
+@section scripts {
 <script type="text/javascript">
-  setInterval(function(){
-      $('blink').each(function() {
-        $(this).css('visibility', $(this).css('visibility') === 'hidden' ? 'visible' : 'hidden')
-      });
+    setInterval(function () {
+        $('blink').each(function () {
+            $(this).css('visibility', $(this).css('visibility') === 'hidden' ? 'visible' : 'hidden')
+        });
     }, 500);
 </script>
-
-
-    <link rel="stylesheet" href="~/Content/teamTable.css" />
-    <h1>ASP.NET SignalR Amazing Race</h1>
-
-    <blink><h2>Live Race Table</h2></blink>
-    <div id="teamTable" style="overflow-x:auto;">
-        <table class="container">
-            <thead>
-                <tr>
-                    <th><h1>Team Id</h1></th>
-                    <th><h1>Team</h1></th>
-                    <th><h1>Total PitStops</h1></th>
-                    <th><h1>PitStops Cleared</h1></th>
-                    <th><h1>Remaining</h1></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="loading"><td colspan="5">No ongoing event...</td></tr>
-            </tbody>
-        </table>
-    </div>
-
-    <p id="demo"></p>
-    
+    }

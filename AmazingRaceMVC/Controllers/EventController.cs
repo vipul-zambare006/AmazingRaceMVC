@@ -141,6 +141,31 @@ namespace AmazingRaceMVC.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult GetTeamsForEvent(Guid id)
+        {
+            try
+            {
+                var raceEvent = _eventRepository.GetById(id);
+                var eventTeamList = raceEvent.Teams.ToList();
+                var teamModelJson = new List<TeamJsonModel>();
+
+                foreach (var item in eventTeamList)
+                {
+                    teamModelJson.Add(new TeamJsonModel
+                    {
+                        Id = item.ID,
+                        TeamName = item.Name
+                    });
+                }
+                return Json(new { status = true, teamModel = teamModelJson }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [HttpPost]
         [ActionName("SavePitstop")]
         public ActionResult SavePit(string eventId, string latLngString)

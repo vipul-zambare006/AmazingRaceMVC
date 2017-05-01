@@ -132,6 +132,8 @@ $('.tablecontainer').on('click', '[id^="btnPitstop_"]', function (e) {
                 var lat = parseFloat(locArray[0]);
                 var lng = parseFloat(locArray[1]);
 
+               
+
                 var marker = new google.maps.Marker({
                     position: { lat: lat, lng: lng },
                     title: "#" + result.pitstops[i].Order,

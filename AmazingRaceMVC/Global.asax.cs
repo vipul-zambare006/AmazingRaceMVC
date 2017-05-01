@@ -14,11 +14,11 @@ namespace AmazingRaceMVC
     {
         protected void Application_Start()
         {
-            //AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<AmazingRaceDBContext>()) 
+
+            BundleTable.EnableOptimizations = true;
         }
 
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)

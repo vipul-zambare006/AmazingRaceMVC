@@ -42,7 +42,7 @@ namespace AmazingRaceMVC.Controllers
             else
             {
                 ModelState.AddModelError("", "Invalid login attempt.");
-                return View(model);
+                return RedirectToAction("Index", "Home");
             }
         }
 

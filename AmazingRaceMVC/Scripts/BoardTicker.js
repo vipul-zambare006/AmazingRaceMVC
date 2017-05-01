@@ -81,6 +81,9 @@ $(function () {
         //sortTable(0);
     }
 
+    ticker.client.finishedEvent = function () {
+        $teamTale.empty();
+    }
 
     // Add a client-side hub method that the server will call
     ticker.client.updateLeaderBoard = function (board) {

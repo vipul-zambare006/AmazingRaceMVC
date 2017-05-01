@@ -1,7 +1,122 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
+    Layout = null;
 }
+<!DOCTYPE html>
+<!-- saved from url=(0104)file:///E:/About%20us/startbootstrap-round-about-gh-pages/startbootstrap-round-about-gh-pages/index.html -->
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<h1>This is about us page</h1>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>About Us</title>
+    <link href="~/Content/round-about.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        #myfooter {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 1rem;
+            background-color: #efefef;
+            text-align: center;
+            font-weight: bold;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
 
+    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Amazing Race</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active">@Html.ActionLink("About Us", "Index", "AboutUs")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+                        <ul id="login-dp" class="dropdown-menu">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.ValidationSummary(true)
+
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputEmail2">Username</label>
+                                                <input type="text" class="form-control" id="UserName" name="UserName" placeholder="Username" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                                <input type="password" class="form-control" id="Password" name="Password" placeholder="Password" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="page-header">Our Team</h4>
+            </div>
+            <div class="col-xs-3 col-md-3 text-center" position="absolute">
+                <img class="img-circle img-responsive img-center" src="/Content/images/boss.png" alt="">
+                <h3>Jayendra Zambre </h3>
+                <p>Master of Technology Software Engineer</p>
+            </div>
+
+            <div class="col-xs-5 col-md-3 text-center" position="relative">
+                <img class="img-circle img-responsive img-center" src="/Content/images/boss.png" alt="">
+                <h3>Prasanna Pawar</h3>
+                <p>Master of Technology Software Engineer</p>
+            </div>
+            <div class="col-xs-5 col-md-3 text-center" position="relative">
+                <img class="img-circle img-responsive img-center" src="/Content/images/boss.png" alt="">
+                <h3>Vipul Zambare</h3>
+                <p>Master of Technology Software Engineer</p>
+            </div>
+
+            <div class="col-xs-5 col-md-3 text-center" position="relative">
+                <img class="img-circle img-responsive img-center" src="/Content/images/boss.png" alt="">
+                <h3>Manish Ghumanani</h3>
+                <p>Master of Technology Software Engineer</p>
+            </div>
+        </div>
+        <hr>
+        <!-- Footer -->
+        <footer id="myfooter">
+            <p>&copy; @DateTime.Now.Year - Enterprise .NET Project By Team-07</p>
+        </footer>
+    </div>
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

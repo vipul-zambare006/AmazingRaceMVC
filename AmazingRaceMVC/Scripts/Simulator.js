@@ -1,31 +1,28 @@
-﻿//simulator function
+﻿//simulator .js start
+//simulator function
 function moveMarkerAlongPath() {
 
     //create symbol on line Path
     //icon on the line
-
     var lineSymbol = {
         path: google.maps.SymbolPath.CIRCLE,
         scale: 8,
         strokeColor: '#00ced1' //#393
     };
 
-
-
-    var teamCount = document.getElementById('No_of_teams').value;
-    //addRow(teamCount);
-
+    var teamCount = teamsForEvent.length;
     if (teamCount == "")
         teamCount = 1;
 
-
     for (i = 1; i <= teamCount; i++) {
-        var duration = Math.floor((Math.random() * 5000) + 3000);
-        var label = { text: "team " + i, color: "black" };
+        debugger;
+        var duration = Math.floor((Math.random() * 8000) + 3000);
+        teamsForEvent[i - 1].TeamName = teamsForEvent[i - 1].TeamName + "" + i;
+        var label = { text: teamsForEvent[i - 1].TeamName, color: getRandomColor() };
 
         var teamMarker = new SlidingMarker({
 
-            position: pathArray[0],
+            position: { lat: zerothLat, lng: zerothLng },
             //title:"#" + path.getLength(),
             animation: google.maps.Animation.DROP,
             label: label,
@@ -34,15 +31,13 @@ function moveMarkerAlongPath() {
             map: map,
             duration: duration
         });
-
         teamMarkers.push(teamMarker);
 
-        var totalPitstops = markersArray.length;
+        var totalPitstops = totalPitstopsForEvent;
         var currentPitstops = 0;
         var remainingPitstops = 0;
         var team = teamMarker.label.text;
         var teamId = parseInt(team.charAt(team.length - 1));
-
 
         //ajax call to initialise leaderboard
         $.ajax({
@@ -92,18 +87,7 @@ function moveMarkerAlongPath() {
 
                 });
 
-                //--------------ajax call ends------------------
-
-                //col1 = rows[markerIndex].getElementsByTagName("TD")[1];
-                //col2 = rows[markerIndex].getElementsByTagName("TD")[2];
-                //col3 = rows[markerIndex].getElementsByTagName("TD")[3];
-                //col1.innerHTML = " " + marker.label.text
-                //col2.innerHTML = " " + currentPitStop;
-                //col3.innerHTML = " " + (pathArray.length - currentPitStop)
-                //sortTable(2);
-                //newsortTable("myTable", 2);
-                //newsortTable("myTable", 1);
-                marker.duration = Math.floor((Math.random() * 5000) + 3000);
+                marker.duration = Math.floor((Math.random() * 8000) + 3000);
                 var wait = marker.duration;
                 move(marker, latlngs, index + 1, wait, newDestination);
 
@@ -120,4 +104,29 @@ function moveMarkerAlongPath() {
         move(teamMarkers[i], pathArray, 0, teamMarkers[i].duration, teamMarkers[i].position);
     }
 
+    //if (i == teamCount)
+    //{
+    //    var finished = "true";
+
+    //    $.ajax({
+
+    //        type: "POST",
+    //        url: url_finished,
+    //        data: { finished: finished },
+    //        traditional: true,
+
+    //    });
+
+    //}
+    
 }
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+//End of simulator js

@@ -57,6 +57,7 @@ namespace BusinessLayer
             //return amazingDBcontext.Events.Find(id);
             return amazingDBcontext.Events
                         .Include(x => x.Pitstops)
+                        .Include(x => x.Teams)
                         .Where(y => y.Id == id)
                         .FirstOrDefault();
         }

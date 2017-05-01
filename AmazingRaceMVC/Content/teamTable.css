@@ -2,8 +2,9 @@
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     line-height: 1.42em;
-    color: #A7A1AE;
-    background-color: #1F2739;
+    /*color: #A7A1AE;*/
+    color:#F5F3EE;
+    /*background-color: #1F2739;*/
 }
 
 #teamTable table {
@@ -18,16 +19,20 @@ h1 {
     font-weight: 300;
     line-height: 1em;
     text-align: center;
-    color: #4DC3FA;
+    color: darkblue;
+}
+
+.white{
+    color: white;
 }
 
 h2 {
-    font-size: 1em;
+    font-size: 2em;
     font-weight: 300;
     text-align: center;
     display: block;
-    line-height: 1em;
-    padding-bottom: 2em;
+    line-height: 0.2em;
+    padding-bottom: 0.1em;
     color: #FB667A;
 }
 
@@ -35,7 +40,7 @@ h2 {
     text-align: center;
     font-weight: bold;
     font-size: 1em;
-    color: #185875;
+    color: white;
 }
 
 .container thead {
